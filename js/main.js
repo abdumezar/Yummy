@@ -14,12 +14,12 @@ function toggleDarkMode(e) {
     $('nav').css('backgroundColor', 'black');
     $('.menu_bar').css('backgroundColor', 'white');
     $('.menu_bar').css('color', 'black');
-    $('.country img').attr('src', 'images/breakfast-light.png');
-    $('.ingredient img').attr('src', 'images/baking-light.png');
+    // $('.country img').attr('src', 'images/breakfast-light.png');
+    // $('.ingredient img').attr('src', 'images/baking-light.png');
     $('.dark-mode input').attr('checked', 'checked');
-    countryImgMode = 'images/breakfast-light.png';
-    ingredImgMode = 'images/baking-light.png';
-    $('.country, .ingredient').css('border', '#fff 2px solid');
+    // countryImgMode = 'images/breakfast-light.png';
+    // ingredImgMode = 'images/baking-light.png';
+    // $('.country, .ingredient').css('border', '#fff 2px solid');
   } else {
     darkMode = true;
     // $('body').css('backgroundColor', 'white');
@@ -28,12 +28,12 @@ function toggleDarkMode(e) {
     $('nav li').css('color', 'black');
     $('.menu_bar').css('backgroundColor', 'black');
     $('.menu_bar').css('color', 'white');
-    $('.country img').attr('src', 'images/breakfast-black.png');
-    $('.ingredient img').attr('src', 'images/baking-black.png');
+    // $('.country img').attr('src', 'images/breakfast-black.png');
+    // $('.ingredient img').attr('src', 'images/baking-black.png');
     $('.dark-mode label').css('color', 'black');
-    countryImgMode = 'images/breakfast-black.png';
-    ingredImgMode = 'images/baking-black.png';
-    $('.country, .ingredient').css('border', '#000 2px solid');
+    // countryImgMode = 'images/breakfast-black.png';
+    // ingredImgMode = 'images/baking-black.png';
+    // $('.country, .ingredient').css('border', '#000 2px solid');
   }
 }
 
@@ -134,6 +134,14 @@ $('#contact').click(function () {
   closeNav();
   displayContactForm();
   $(".loadingLayer").hide();
+  $('.contactUs input').keyup(function () {
+    if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
+      $('button.submit').removeClass('disabled');
+    } else {
+      $('button.submit').addClass('disabled');
+    }
+  });
+  validateInputs();
 });
 
 async function LoadHomePage() {
@@ -246,7 +254,7 @@ function dispalyMealDetailed(currentMeal) {
       <div class="mealPhoto mb-3">
         <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
       </div>
-      <h3 class="fs-1 text-center my-3">${currentMeal.meals[0].strMeal}</h3>
+      <h3 class="fs-1 ps-2 my-3">${currentMeal.meals[0].strMeal}</h3>
     </div>
   </div>
 
@@ -268,7 +276,6 @@ function dispalyMealDetailed(currentMeal) {
   </div>
 </div>
   `;
-
   $('#MainSec').html(finalCode);
 }
 
@@ -311,7 +318,7 @@ function displayContactForm() {
   <div class="row contactUs py-2 text-black">
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control " id="contactName" placeholder="Name">
+        <input type="text" class="form-control test1" id="contactName" placeholder="Name">
         <label for="contactName">Name</label>
       </div>
     </div>
@@ -350,19 +357,19 @@ function displayContactForm() {
     </div>
     <div class="col-12">
       <div class="instructions text-danger">
+        <p> - Name: 3 charachters or more [ up tp 30 charachters]. </p>
         <p> - Email: email@provider.com. </p>
         <p> - Phone: 11 digit , start with (+20)010 or (+20)011 or (+20)012 or (+20)015.</p>
         <p> - Age : from 18 to 80 years old.</p>
         <p> - Password: must contain charachters, numbers, special charachter [ 8 or more ].</p>
       </div>
     </div>
-  </div>
-  `
+  </div>`
   $('#MainSec').html(contactCode);
 }
 
 function NameValidation() {
-  return /^[a-zA-Z ]{2,30}$/.test($('#contactName').val());
+  return /^[a-zA-Z ]{3,30}$/.test($('#contactName').val());
 }
 function EmailValidation() {
   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($('#contactEmail').val());
@@ -374,16 +381,69 @@ function AgeValidation() {
   return /^(18|19|[2-7][0-9]|80)$/gm.test($('#contactAge').val());
 }
 function Pass1Validation() {
+  if ($('#contactPass1').val().length < 8 || $('#contactPass1').val() == "") return false;
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/gm.test($('#contactPass1').val());
 }
 function Pass2Validation() {
   return $('#contactPass2').val() === $('#contactPass1').val();
 }
 
-$('.contactUs input').keyup(function () {
-  if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
-    $('button.submit').removeClass('disabled');
-  } else {
-    $('button.submit').addClass('disabled');
-  }
-});
+function validateInputs() {
+  $('#contactName').focusout(function () {
+    if (NameValidation()) {
+      $('#contactName').removeClass('checkError');
+    } else {
+      $('#contactName').addClass('checkError');
+    }
+  });
+
+  $('#contactEmail').focusout(function () {
+    if (EmailValidation()) {
+      $('#contactEmail').removeClass('checkError');
+    } else {
+      $('#contactEmail').addClass('checkError');
+    }
+  });
+
+  $('#contactPhone').focusout(function () {
+    if (PhoneValidation()) {
+      $('#contactPhone').removeClass('checkError');
+    } else {
+      $('#contactPhone').addClass('checkError');
+    }
+  });
+
+  $('#contactAge').focusout(function () {
+    if (AgeValidation()) {
+      $('#contactAge').removeClass('checkError');
+    } else {
+      $('#contactAge').addClass('checkError');
+    }
+  });
+
+  $('#contactPass1').focusout(function () {
+    if ($('#contactPass1').val() == "") {
+      $('#contactPass1').addClass('checkError');
+      console.log("meee")
+    } else {
+      if (Pass1Validation()) {
+        $('#contactPass1').removeClass('checkError');
+      } else {
+        $('#contactPass1').addClass('checkError');
+      }
+    }
+  });
+
+  $('#contactPass2').focusout(function () {
+    if ($('#contactPass2').val() == "") {
+      $('#contactPass2').addClass('checkError');
+      console.log("meee")
+    } else {
+      if (Pass1Validation()) {
+        $('#contactPass2').removeClass('checkError');
+      } else {
+        $('#contactPass2').addClass('checkError');
+      }
+    }
+  });
+}

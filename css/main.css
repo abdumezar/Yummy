@@ -189,6 +189,15 @@ nav ul li{
 
 .checkError{
   border: rgb(255, 0, 0) solid 3px;
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #fff;
+}
+
+.checkError ~ label{
+  color: #fff;
+}
+.checkError:focus ~ label{
+  color: #000;
 }
 
 .ingredient{
