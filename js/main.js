@@ -1,14 +1,12 @@
-async function ApplyAPICountry(country) {
-  if (country == "" || country == undefined) { country = "Egyptian"; }
-  return await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`)).json();
-}
+let darkMode = false;
+let countryImgMode = 'images/breakfast-light.png', ingredImgMode = 'images/baking-light.png';
 
-// $(document).ready(async function () {
-//   $(".loadingLayer").css("display", "flex");
-//   let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
-//   displayAllMeals(MealsJSONMain);
-//   $(".loadingLayer").css("display", "none");
-// });
+$(document).ready(async function () {
+  $(".loadingLayer").css("display", "flex");
+  let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
+  displayAllMeals(MealsJSONMain);
+  $(".loadingLayer").css("display", "none");
+});
 
 $('#MainSec').click(async function (e) {
   if ($(e.target).attr('meal-id') != undefined) {
@@ -33,33 +31,25 @@ $('#MainSec').click(async function (e) {
     $(".loadingLayer").css("display", "none");
   }
   if ($(e.target).attr('ingred') != undefined) {
-
     $(".loadingLayer").css("display", "flex");
     let currentIngredName = $(e.target).attr('ingred');
     let currentIngredJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${currentIngredName}`)).json();
     displayAllMeals(currentIngredJSON);
     $(".loadingLayer").css("display", "none");
   }
-
-
 });
-
-
 
 $('.menu_bar img, #home ').click(async function () {
   $(".loadingLayer").css("display", "flex");
+  closeNav();
   let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
   displayAllMeals(MealsJSONMain);
   $(".loadingLayer").css("display", "none");
 })
 
-$('.fa-bars').click(function () {
-  openNav();
-});
+$('.fa-bars').click(openNav);
 
-$('.fa-xmark').click(function () {
-  closeNav();
-});
+$('.fa-xmark').click(closeNav);
 
 $('#search').click(function () {
   closeNav();
@@ -115,7 +105,13 @@ $('#ingred').click(async function () {
   $(".loadingLayer").hide();
 });
 
-
+$('#contact').click(function () {
+  $('.searchRow').css("display", "none");
+  $(".loadingLayer").css("display", "flex");
+  closeNav();
+  displayContactForm();
+  $(".loadingLayer").hide();
+})
 
 function displayAllMeals(MEALs_JSON) {
   let finalCode = "";
@@ -177,8 +173,8 @@ function searchBoxEmpty() {
 
 function closeNav() {
   $('.navBar').animate({ left: "-250px" }, 500);
-  $('.fa-xmark').fadeToggle(25, function () {
-    $('.fa-bars').fadeToggle(25);
+  $('.fa-xmark').fadeOut(25, function () {
+    $('.fa-bars').fadeIn(25);
   });
   // added to jQuery file manualy
   $('nav ul li').animateTransform("translateY(500%)", 750);
@@ -186,8 +182,8 @@ function closeNav() {
 
 function openNav() {
   $('.navBar').animate({ left: "0" }, 500);
-  $('.fa-bars').fadeToggle(25, function () {
-    $('.fa-xmark').fadeToggle(25);
+  $('.fa-bars').fadeOut(25, function () {
+    $('.fa-xmark').fadeIn(25);
   });
   // added to jQuery file manualy
   $('nav ul li').animateTransform("translateY(0)", 750);
@@ -245,13 +241,14 @@ function dispalyMealDetailed(currentMeal) {
   $('#MainSec').html(finalCode);
 }
 
+
 function displayCountries(CountriesJSON) {
   let myCode = "";
   for (let i = 0; i < 20; i++) {
     myCode += `
     <div class="col-md-3">
       <div class="country" country="${CountriesJSON.meals[i].strArea}">
-        <img src="images/breakfast.png" class="w-25 text-white" country="${CountriesJSON.meals[i].strArea}">
+        <img src="${countryImgMode}" class="w-50 text-white" country="${CountriesJSON.meals[i].strArea}">
         <h3 class="my-4 fs-2" country="${CountriesJSON.meals[i].strArea}">${CountriesJSON.meals[i].strArea}</h3>
       </div>
     </div>
@@ -267,7 +264,7 @@ function displayIngredients(IngredientsJSON) {
     myCode += `
     <div class="col-md-3">
         <div class="ingredient" ingred="${IngredientsJSON.meals[i].strIngredient}">
-          <img src="images/baking.png" class="w-25 text-white" ingred="${IngredientsJSON.meals[i].strIngredient}">
+          <img src="${ingredImgMode}" class="w-50 text-white" ingred="${IngredientsJSON.meals[i].strIngredient}">
           <h3 class="my-4" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strIngredient}</h3>
           <p ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 20).join(" ")}</p>
         </div>
@@ -277,6 +274,7 @@ function displayIngredients(IngredientsJSON) {
   let finalCode = `<div class="row g-4 text-center ingredients">${myCode}</div>`;
   $('#MainSec').html(finalCode);
 }
+
 
 function NameValidation() {
   return /^[a-zA-Z ]{2,30}$/.test($('#contactName').val());
@@ -297,10 +295,161 @@ function Pass2Validation() {
   return $('#contactPass2').val() === $('#contactPass1').val();
 }
 
+
+$('#contactName').focusout(function () {
+  if (NameValidation()) {
+    $('#contactName').removeClass('checkError');
+  } else {
+    $('#contactName').addClass('checkError');
+  }
+});
+
+$('#contactEmail').focusout(function () {
+  if (EmailValidation()) {
+    $('#contactEmail').removeClass('checkError');
+  } else {
+    $('#contactEmail').addClass('checkError');
+  }
+});
+
+
+$('#contactPhone').focusout(function () {
+  if (PhoneValidation()) {
+    $('#contactPhone').removeClass('checkError');
+  } else {
+    $('#contactPhone').addClass('checkError');
+  }
+});
+
+
+$('#contactAge').focusout(function () {
+  if (AgeValidation()) {
+    $('#contactAge').removeClass('checkError');
+  } else {
+    $('#contactAge').addClass('checkError');
+  }
+});
+
+$('#contactPass1').focusout(function () {
+  if ($('#contactPass1').val() == "") {
+    console.log("s");
+    $('#contactPass1').addClass('checkError');
+  }
+  if (Pass1Validation()) {
+    $('#contactPass1').removeClass('checkError');
+  } else {
+    $('#contactPass1').addClass('checkError');
+  }
+});
+
+$('#contactPass1').focusout(function () {
+  if (Pass2Validation()) {
+    $('#contactPass1').removeClass('checkError');
+  } else {
+    $('#contactPass1').addClass('checkError');
+  }
+});
+
+
 $('#contactName , #contactEmail , #contactPhone , #contactAge , #contactPass1 , #contactPass2').keyup(function () {
   if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
+    console.log("ddddd")
     $('button.submit').removeClass('disabled');
   } else {
     $('button.submit').addClass('disabled');
   }
 });
+
+function displayContactForm() {
+  let contactCode = `
+  <h2>Contact Us</h2>
+  <div class="row py-2 text-black">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control " id="contactName" placeholder="Name">
+        <label for="contactName">Name</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control " id="contactEmail" placeholder="Email address">
+        <label for="contactEmail">Email address</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control " id="contactPhone" placeholder="Phone Number">
+        <label for="contactPhone">Phone Number</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="number" class="form-control " id="contactAge" placeholder="Age">
+        <label for="contactAge">Age</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control " id="contactPass1" placeholder="Password">
+        <label for="contactPass1">Password</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+        <input type="password" class="form-control " id="contactPass2" placeholder="Re enter password">
+        <label for="contactPass2">Re enter password</label>
+      </div>
+    </div>
+    <div class="col-12 text-center py-5">
+      <button class="btn submit btn-success w-50 disabled">Submit</button>
+    </div>
+    <div class="col-12">
+      <div class="instructions text-danger">
+        <p> - Email: email@provider.com. </p>
+        <p> - Phone: 11 digit , start with (+20)010 or (+20)011 or (+20)012 or (+20)015.</p>
+        <p> - Age : from 18 to 80 years old.</p>
+        <p> - Password: must contain charachters, numbers, special charachter [ 8 or more ].</p>
+      </div>
+    </div>
+  </div>
+  `
+  $('#MainSec').html(contactCode);
+}
+
+$('.form-check-input, .fa-circle-half-stroke').click(toggleDarkMode);
+
+function toggleDarkMode(e) {
+  if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
+    $('.form-check-input').removeAttr('checked');
+  } else if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
+    $('.form-check-input').Attr('checked', 'checked');
+  }
+  if (darkMode == true) {
+    darkMode = false;
+    $('body').css('backgroundColor', 'rgba(0, 0, 0, 0.95)');
+    $('body').css('color', 'white');
+    $('nav').css('backgroundColor', 'black');
+    $('nav li').css('color', 'white');
+    $('.menu_bar').css('backgroundColor', 'white');
+    $('.menu_bar').css('color', 'black');
+    $('.country img').attr('src', 'images/breakfast-light.png');
+    $('.ingredient img').attr('src', 'images/baking-light.png');
+    $('.dark-mode label').css('color', 'white');
+    $('.dark-mode input').attr('checked', 'checked');
+    countryImgMode = 'images/breakfast-light.png';
+    ingredImgMode = 'images/baking-light.png';
+  } else {
+    darkMode = true;
+    $('body').css('backgroundColor', 'white');
+    $('body').css('color', 'black');
+    $('nav').css('backgroundColor', 'white');
+    $('nav li').css('color', 'black');
+    $('.menu_bar').css('backgroundColor', 'black');
+    $('.menu_bar').css('color', 'white');
+    $('.country img').attr('src', 'images/breakfast-black.png');
+    $('.ingredient img').attr('src', 'images/baking-black.png');
+    $('.dark-mode label').css('color', 'black');
+    countryImgMode = 'images/breakfast-black.png';
+    ingredImgMode = 'images/baking-black.png';
+  }
+}

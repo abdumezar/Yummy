@@ -58,6 +58,7 @@ nav ul li{
 
 .menu_bar{
   background-color: white;
+  color: black;
   height: 100vh;
   font-size: 1.5rem;
   white-space: 60px;
@@ -158,9 +159,12 @@ nav ul li{
   border-color: #f5c6cb;
 }
 
-
 #MainSec h2{
   text-align: center;
   font-size: 5rem;
   margin: 50px auto;
+}
+
+.checkError{
+  border: rgb(255, 0, 0) solid 3px;
 }
