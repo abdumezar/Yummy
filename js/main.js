@@ -1,12 +1,47 @@
 let darkMode = false;
 let countryImgMode = 'images/breakfast-light.png', ingredImgMode = 'images/baking-light.png';
+$('.form-check-input, .fa-circle-half-stroke').click(toggleDarkMode);
+function toggleDarkMode(e) {
+  if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
+    $('.form-check-input').removeAttr('checked');
+  } else if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
+    $('.form-check-input').Attr('checked', 'checked');
+  }
+  if (darkMode == true) {
+    darkMode = false;
+    // $('body').css('backgroundColor', 'rgba(0, 0, 0, 0.95)');
+    $('body, nav li, .dark-mode label').css('color', 'white');
+    $('nav').css('backgroundColor', 'black');
+    $('.menu_bar').css('backgroundColor', 'white');
+    $('.menu_bar').css('color', 'black');
+    $('.country img').attr('src', 'images/breakfast-light.png');
+    $('.ingredient img').attr('src', 'images/baking-light.png');
+    $('.dark-mode input').attr('checked', 'checked');
+    countryImgMode = 'images/breakfast-light.png';
+    ingredImgMode = 'images/baking-light.png';
+    $('.country, .ingredient').css('border', '#fff 2px solid');
+  } else {
+    darkMode = true;
+    // $('body').css('backgroundColor', 'white');
+    // $('body').css('color', 'black');
+    $('nav').css('backgroundColor', 'white');
+    $('nav li').css('color', 'black');
+    $('.menu_bar').css('backgroundColor', 'black');
+    $('.menu_bar').css('color', 'white');
+    $('.country img').attr('src', 'images/breakfast-black.png');
+    $('.ingredient img').attr('src', 'images/baking-black.png');
+    $('.dark-mode label').css('color', 'black');
+    countryImgMode = 'images/breakfast-black.png';
+    ingredImgMode = 'images/baking-black.png';
+    $('.country, .ingredient').css('border', '#000 2px solid');
+  }
+}
 
-$(document).ready(async function () {
-  $(".loadingLayer").css("display", "flex");
-  let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
-  displayAllMeals(MealsJSONMain);
-  $(".loadingLayer").css("display", "none");
-});
+$('.fa-bars').click(openNav);
+$('.fa-xmark').click(closeNav);
+$(document).ready(LoadHomePage);
+$('.menu_bar img, #home ').click(LoadHomePage);
+
 
 $('#MainSec').click(async function (e) {
   if ($(e.target).attr('meal-id') != undefined) {
@@ -38,18 +73,6 @@ $('#MainSec').click(async function (e) {
     $(".loadingLayer").css("display", "none");
   }
 });
-
-$('.menu_bar img, #home ').click(async function () {
-  $(".loadingLayer").css("display", "flex");
-  closeNav();
-  let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
-  displayAllMeals(MealsJSONMain);
-  $(".loadingLayer").css("display", "none");
-})
-
-$('.fa-bars').click(openNav);
-
-$('.fa-xmark').click(closeNav);
 
 $('#search').click(function () {
   closeNav();
@@ -111,7 +134,15 @@ $('#contact').click(function () {
   closeNav();
   displayContactForm();
   $(".loadingLayer").hide();
-})
+});
+
+async function LoadHomePage() {
+  $(".loadingLayer").css("display", "flex");
+  closeNav();
+  let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
+  displayAllMeals(MealsJSONMain);
+  $(".loadingLayer").css("display", "none");
+}
 
 function displayAllMeals(MEALs_JSON) {
   let finalCode = "";
@@ -137,7 +168,7 @@ function displayAllMeals(MEALs_JSON) {
       </div>
       `;
     }
-    finalCode = `<div class="row g-5">${myCode}</div>`
+    finalCode = `<div class="row g-4">${myCode}</div>`
   }
 
   $('#MainSec').html(finalCode);
@@ -213,13 +244,9 @@ function dispalyMealDetailed(currentMeal) {
   <div class="col-md-4 m-0">
     <div class="p-3">
       <div class="mealPhoto mb-3">
-        <img src="${currentMeal.meals[0].strMealThumb}" class="w-100">
+        <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
       </div>
       <h3 class="fs-1 text-center my-3">${currentMeal.meals[0].strMeal}</h3>
-      <div class="d-flex justify-content-evenly">
-        <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-success">Source</a>
-        <a href="${currentMeal.meals[0].strYoutube}"  class="btn btn-danger">YouTube</a>
-      </div>
     </div>
   </div>
 
@@ -233,6 +260,10 @@ function dispalyMealDetailed(currentMeal) {
       <div class="recipes mb-5">${ingredCode}</div>
       <h4 class="fs-3">Tags:</h4>
       <div class="tags my-3">${tagsCode}</div>
+      <div class="">
+        <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-success me-3">Source</a>
+        <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-danger">YouTube</a>
+      </div>
     </div>
   </div>
 </div>
@@ -240,7 +271,6 @@ function dispalyMealDetailed(currentMeal) {
 
   $('#MainSec').html(finalCode);
 }
-
 
 function displayCountries(CountriesJSON) {
   let myCode = "";
@@ -264,7 +294,7 @@ function displayIngredients(IngredientsJSON) {
     myCode += `
     <div class="col-md-3">
         <div class="ingredient" ingred="${IngredientsJSON.meals[i].strIngredient}">
-          <img src="${ingredImgMode}" class="w-50 text-white" ingred="${IngredientsJSON.meals[i].strIngredient}">
+          <img src="${ingredImgMode}" class="w-50 text-white" ingred="${IngredientsJSON.meals[i].strIngredient}"/>
           <h3 class="my-4" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strIngredient}</h3>
           <p ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 20).join(" ")}</p>
         </div>
@@ -275,95 +305,10 @@ function displayIngredients(IngredientsJSON) {
   $('#MainSec').html(finalCode);
 }
 
-
-function NameValidation() {
-  return /^[a-zA-Z ]{2,30}$/.test($('#contactName').val());
-}
-function EmailValidation() {
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($('#contactEmail').val());
-}
-function PhoneValidation() {
-  return /^(01|201|\+201)[0125][0-9]{8}$/gm.test($('#contactPhone').val());
-}
-function AgeValidation() {
-  return /^(18|19|[2-7][0-9]|80)$/gm.test($('#contactAge').val());
-}
-function Pass1Validation() {
-  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/gm.test($('#contactPass1').val());
-}
-function Pass2Validation() {
-  return $('#contactPass2').val() === $('#contactPass1').val();
-}
-
-
-$('#contactName').focusout(function () {
-  if (NameValidation()) {
-    $('#contactName').removeClass('checkError');
-  } else {
-    $('#contactName').addClass('checkError');
-  }
-});
-
-$('#contactEmail').focusout(function () {
-  if (EmailValidation()) {
-    $('#contactEmail').removeClass('checkError');
-  } else {
-    $('#contactEmail').addClass('checkError');
-  }
-});
-
-
-$('#contactPhone').focusout(function () {
-  if (PhoneValidation()) {
-    $('#contactPhone').removeClass('checkError');
-  } else {
-    $('#contactPhone').addClass('checkError');
-  }
-});
-
-
-$('#contactAge').focusout(function () {
-  if (AgeValidation()) {
-    $('#contactAge').removeClass('checkError');
-  } else {
-    $('#contactAge').addClass('checkError');
-  }
-});
-
-$('#contactPass1').focusout(function () {
-  if ($('#contactPass1').val() == "") {
-    console.log("s");
-    $('#contactPass1').addClass('checkError');
-  }
-  if (Pass1Validation()) {
-    $('#contactPass1').removeClass('checkError');
-  } else {
-    $('#contactPass1').addClass('checkError');
-  }
-});
-
-$('#contactPass1').focusout(function () {
-  if (Pass2Validation()) {
-    $('#contactPass1').removeClass('checkError');
-  } else {
-    $('#contactPass1').addClass('checkError');
-  }
-});
-
-
-$('#contactName , #contactEmail , #contactPhone , #contactAge , #contactPass1 , #contactPass2').keyup(function () {
-  if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
-    console.log("ddddd")
-    $('button.submit').removeClass('disabled');
-  } else {
-    $('button.submit').addClass('disabled');
-  }
-});
-
 function displayContactForm() {
   let contactCode = `
   <h2>Contact Us</h2>
-  <div class="row py-2 text-black">
+  <div class="row contactUs py-2 text-black">
     <div class="col-md-6">
       <div class="form-floating mb-3">
         <input type="text" class="form-control " id="contactName" placeholder="Name">
@@ -378,7 +323,7 @@ function displayContactForm() {
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control " id="contactPhone" placeholder="Phone Number">
+        <input type="text" class="form-control testing" id="contactPhone" placeholder="Phone Number">
         <label for="contactPhone">Phone Number</label>
       </div>
     </div>
@@ -416,40 +361,29 @@ function displayContactForm() {
   $('#MainSec').html(contactCode);
 }
 
-$('.form-check-input, .fa-circle-half-stroke').click(toggleDarkMode);
-
-function toggleDarkMode(e) {
-  if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
-    $('.form-check-input').removeAttr('checked');
-  } else if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
-    $('.form-check-input').Attr('checked', 'checked');
-  }
-  if (darkMode == true) {
-    darkMode = false;
-    $('body').css('backgroundColor', 'rgba(0, 0, 0, 0.95)');
-    $('body').css('color', 'white');
-    $('nav').css('backgroundColor', 'black');
-    $('nav li').css('color', 'white');
-    $('.menu_bar').css('backgroundColor', 'white');
-    $('.menu_bar').css('color', 'black');
-    $('.country img').attr('src', 'images/breakfast-light.png');
-    $('.ingredient img').attr('src', 'images/baking-light.png');
-    $('.dark-mode label').css('color', 'white');
-    $('.dark-mode input').attr('checked', 'checked');
-    countryImgMode = 'images/breakfast-light.png';
-    ingredImgMode = 'images/baking-light.png';
-  } else {
-    darkMode = true;
-    $('body').css('backgroundColor', 'white');
-    $('body').css('color', 'black');
-    $('nav').css('backgroundColor', 'white');
-    $('nav li').css('color', 'black');
-    $('.menu_bar').css('backgroundColor', 'black');
-    $('.menu_bar').css('color', 'white');
-    $('.country img').attr('src', 'images/breakfast-black.png');
-    $('.ingredient img').attr('src', 'images/baking-black.png');
-    $('.dark-mode label').css('color', 'black');
-    countryImgMode = 'images/breakfast-black.png';
-    ingredImgMode = 'images/baking-black.png';
-  }
+function NameValidation() {
+  return /^[a-zA-Z ]{2,30}$/.test($('#contactName').val());
 }
+function EmailValidation() {
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($('#contactEmail').val());
+}
+function PhoneValidation() {
+  return /^(01|201|\+201)[0125][0-9]{8}$/gm.test($('#contactPhone').val());
+}
+function AgeValidation() {
+  return /^(18|19|[2-7][0-9]|80)$/gm.test($('#contactAge').val());
+}
+function Pass1Validation() {
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/gm.test($('#contactPass1').val());
+}
+function Pass2Validation() {
+  return $('#contactPass2').val() === $('#contactPass1').val();
+}
+
+$('.contactUs input').keyup(function () {
+  if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
+    $('button.submit').removeClass('disabled');
+  } else {
+    $('button.submit').addClass('disabled');
+  }
+});

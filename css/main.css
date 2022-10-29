@@ -1,7 +1,26 @@
 body{
   font-family: 'Cairo', sans-serif;
-  background-color: rgba(0, 0, 0, 0.95);
+  /* background-color: rgba(0, 0, 0, 0.95); */
   color: white;
+  width: calc(100% - 3rem);
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url(../images/pexels-pixabay-33162.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.mainLayer{
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
 }
 
 i:hover, nav ul li:hover,.menu_bar img, .Countries .country, .ingredients .ingredient{
@@ -79,7 +98,7 @@ nav ul li{
 
 /*******************************************************************************/
 #MainSec{
-  width: 60%;
+  width: 75%;
   margin: 50px auto;
 }
 
@@ -95,7 +114,7 @@ nav ul li{
   margin: 0 auto;
   padding: 0;
   position: relative;
-  border-radius: 25px;
+  border-radius: 20px;
   cursor: pointer;
   color: #000;
 }
@@ -106,16 +125,19 @@ nav ul li{
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.6);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
   padding: 2rem;
   font-weight: bold;
   transform: translateY(100%);
   transition: all 1s;
-  font-size: 2rem;
+}
+
+.category{
+  height: 250px;
 }
 
 .meal:hover .mealLayer, .category:hover .categoryLayer{
@@ -127,7 +149,7 @@ nav ul li{
   font-weight: 300;
 }
 .mealLayer h5, .categoryLayer h5{
-  font-size: 25px;
+  font-size: 40px;
   font-weight: bold;
 }
 /*******************************************************************************/
@@ -167,4 +189,22 @@ nav ul li{
 
 .checkError{
   border: rgb(255, 0, 0) solid 3px;
+}
+
+.ingredient{
+  border: #fff 2px solid;
+  border-radius: 10px;
+  padding: 15px;
+  height: 350px;
+}
+
+.country{
+  border: #fff 2px solid;
+  border-radius: 10px;
+  padding: 10px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
