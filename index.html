@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yummy - Exam</title>
+  <link rel="icon" href="images/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <div class="loadingLayer"><i class="fa-solid fa-spinner fa-spin fs-2"></i></div>
+
+  <div class="navBar">
+    <nav>
+      <ul>
+        <li><a id="home">Home</a></li>
+        <li><a id="search">Search</a></li>
+        <li><a id="categories">Categoties</a></li>
+        <li><a id="area">Area</a></li>
+        <li><a id="ingred">Ingredients</a></li>
+        <li><a id="contact">Contact Us</a></li>
+      </ul>
+
+      <div class="text-muted">
+        <div class="social_icons mb-2">
+          <i class="fa-brands fa-facebook-f"></i>
+          <i class="fa-brands fa-twitter mx-2"></i>
+          <i class="fa-solid fa-globe"></i>
+        </div>
+        <p class="text-muted">Copyright © 2019 All Rights Reserved.</p>
+      </div>
+    </nav>
+
+    <div class="menu_bar text-black">
+      <img src="images/logo.png" alt="logo" class="d-block">
+      <i class="fa-solid fa-bars fs-1"></i>
+      <i class="fa-solid fa-xmark fs-1"></i>
+      <div class="d-flex justify-content-center flex-column">
+        <i class="fa-solid fa-globe my-2"></i>
+        <i class="fa-solid fa-share-nodes my-2"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="row searchRow">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInputSearchName" placeholder="Search by name">
+        <label for="floatingInputSearchNAme">Search by name</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInputSearchletter" placeholder="Search by first letter">
+        <label for="floatingInputSearchletter">Search by first letter</label>
+      </div>
+    </div>
+  </div>
+
+  <section class="container" id="MainSec">
+    <h2>Contact Us</h2>
+    <div class="row py-2 text-black">
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="contactName" placeholder="Name">
+          <label for="contactName">Name</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="contactEmail" placeholder="Email address">
+          <label for="contactEmail">Email address</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="contactPhone" placeholder="Phone Number">
+          <label for="contactPhone">Phone Number</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="contactAge" placeholder="Age">
+          <label for="contactAge">Age</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="contactPass1" placeholder="Password">
+          <label for="contactPass1">Password</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating">
+          <input type="password" class="form-control" id="contactPass2" placeholder="Re enter password">
+          <label for="contactPass2">Re enter password</label>
+        </div>
+      </div>
+      <div class="col-12 text-center py-5">
+        <button class="btn submit btn-danger w-50 disabled">Submit</button>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!--  Javascript  -->
+
+  <script src="js/jquery-3.6.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

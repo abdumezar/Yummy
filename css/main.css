@@ -1,0 +1,166 @@
+body{
+  font-family: 'Cairo', sans-serif;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: white;
+}
+
+i:hover, nav ul li:hover,.menu_bar img, .Countries .country, .ingredients .ingredient{
+  cursor: pointer;
+}
+
+.loadingLayer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.navBar{
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: -250px;
+  display: flex;
+}
+
+nav{
+  height: 100vh;
+  width: 250px;
+  background: rgba(0, 0, 0, 0.95);
+  color: #fff;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+nav ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+nav ul li{
+  margin: 20px 0;
+  font-size: 1.5rem;
+  transform: translateY(500%);
+  color: white;
+}
+
+.menu_bar{
+  background-color: white;
+  height: 100vh;
+  font-size: 1.5rem;
+  white-space: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
+  align-items: center;
+}
+
+.menu_bar img{
+  width: 3rem;
+}
+
+.fa-xmark{
+  display: none;
+}
+
+/*******************************************************************************/
+#MainSec{
+  width: 60%;
+  margin: 50px auto;
+}
+
+.searchRow{
+  display: none;
+  margin: 50px auto;
+  width: 75%;
+  color: #000;
+}
+
+.meal, .category{
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  border-radius: 25px;
+  cursor: pointer;
+  color: #000;
+}
+
+.mealLayer, .categoryLayer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-weight: bold;
+  transform: translateY(100%);
+  transition: all 1s;
+  font-size: 2rem;
+}
+
+.meal:hover .mealLayer, .category:hover .categoryLayer{
+  transform: translateY(0);
+}
+
+.mealLayer p, .categoryLayer p{
+  font-size: 12px;
+  font-weight: 300;
+}
+.mealLayer h5, .categoryLayer h5{
+  font-size: 25px;
+  font-weight: bold;
+}
+/*******************************************************************************/
+
+.currentMeal .mealPhoto{
+  width: 100%;
+  overflow: hidden;
+  margin: 50px auto;
+  border-radius: 25px;
+}
+
+.currentMeal .recipes span{
+  color: #155724;
+  background-color: #d4edda;
+  border-radius: 7px;
+  padding: 3px 5px;
+  margin: 8px 8px;
+  display: inline-block;
+  border-color: #c3e6cb;
+}
+
+.currentMeal .tags  span{
+  color: #721c24;
+  background-color: #f8d7da;
+  border-radius: 7px;
+  padding: 3px 5px;
+  margin: 8px 8px;
+  display: inline-block;
+  border-color: #f5c6cb;
+}
+
+
+#MainSec h2{
+  text-align: center;
+  font-size: 5rem;
+  margin: 50px auto;
+}
