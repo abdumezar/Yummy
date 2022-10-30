@@ -1,5 +1,5 @@
 body{
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: white;
   width: calc(100% - 3rem);
   position: absolute;
@@ -232,4 +232,9 @@ nav ul li{
   margin: 0 auto;
   padding: 1rem;
   font-size: 4rem;
+}
+
+.contactUs p{
+  display: none;
+  font-size: 0.9rem;
 }

@@ -116,6 +116,7 @@ $('#search').click(function () {
 
 $('#categories').click(async function () {
   closeNav();
+  $('.searchRow').hide();
   $(".loadingLayer").css("display", "flex");
   let CategoJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)).json();
   setTimeout(function () {
@@ -137,6 +138,7 @@ $('#area').click(async function () {
 
 $('#ingred').click(async function () {
   $(".loadingLayer").hide();
+  $('.searchRow').hide();
   closeNav();
   $(".loadingLayer").css("display", "flex");
   let IngredientsJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`)).json();
@@ -148,6 +150,7 @@ $('#ingred').click(async function () {
 
 $('#contact').click(function () {
   $(".loadingLayer").hide();
+  $('.searchRow').hide();
   $(".loadingLayer").css("display", "flex");
   closeNav();
   setTimeout(function () {
@@ -294,8 +297,8 @@ function dispalyMealDetailed(currentMeal) {
         <h4 class="fs-3">Tags:</h4>
         <div class="tags my-3">${tagsCode}</div>
         <div class="">
-          <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-success me-3">Source</a>
-          <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-danger">YouTube</a>
+          <a target="_blank" href="${currentMeal.meals[0].strYoutube}" class="btn btn-success me-3">Source</a>
+          <a target="_blank" href="${currentMeal.meals[0].strYoutube}" class="btn btn-danger">YouTube</a>
         </div>
       </div>
     </div>
@@ -347,48 +350,45 @@ function displayContactForm() {
         <input type="text" class="form-control test1" id="contactName" placeholder="Name">
         <label for="contactName">Name</label>
       </div>
+      <p class="fw-bold text-danger nameChkErr"> - Name: at least 3 charachters [ up tp 30 charachters]. </p>
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
         <input type="email" class="form-control " id="contactEmail" placeholder="Email address">
         <label for="contactEmail">Email address</label>
       </div>
+      <p class="fw-bold text-danger emailChkErr"> - Email: email@provider.com. </p>
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
         <input type="text" class="form-control testing" id="contactPhone" placeholder="Phone Number">
         <label for="contactPhone">Phone Number</label>
       </div>
+      <p class="fw-bold text-danger phoneChkErr"> - Phone: 11 digit , start with (+20)010 or (+20)011 or (+20)012 or (+20)015.</p>
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
         <input type="number" class="form-control " id="contactAge" placeholder="Age">
         <label for="contactAge">Age</label>
       </div>
+      <p class="fw-bold text-danger ageChkErr"> - Age : from 18 to 80 years old.</p>
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
         <input type="password" class="form-control " id="contactPass1" placeholder="Password">
         <label for="contactPass1">Password</label>
       </div>
+      <p class="fw-bold text-danger pass1ChkErr"> - Password: must contain charachters, numbers, special charachter [ 8 or more ].</p>
     </div>
     <div class="col-md-6">
-      <div class="form-floating">
+      <div class="form-floating mb-3">
         <input type="password" class="form-control " id="contactPass2" placeholder="Re enter password">
         <label for="contactPass2">Re enter password</label>
       </div>
+      <p class="fw-bold text-danger pass2ChkErr"> - two passwords are different!</p>
     </div>
     <div class="col-12 text-center py-5">
       <button class="btn submit btn-success w-50 disabled">Submit</button>
-    </div>
-    <div class="col-12">
-      <div class="instructions text-danger">
-        <p> - Name: 3 charachters or more [ up tp 30 charachters]. </p>
-        <p> - Email: email@provider.com. </p>
-        <p> - Phone: 11 digit , start with (+20)010 or (+20)011 or (+20)012 or (+20)015.</p>
-        <p> - Age : from 18 to 80 years old.</p>
-        <p> - Password: must contain charachters, numbers, special charachter [ 8 or more ].</p>
-      </div>
     </div>
   </div>`
   $('#MainSec').html(contactCode);
@@ -416,58 +416,77 @@ function Pass2Validation() {
 
 function validateInputs() {
   $('#contactName').focusout(function () {
+    if ($('#contactName').val() == "") { return; }
     if (NameValidation()) {
       $('#contactName').removeClass('checkError');
+      $('.nameChkErr').hide();
     } else {
       $('#contactName').addClass('checkError');
-
+      $('.nameChkErr').show();
     }
   });
 
   $('#contactEmail').focusout(function () {
+    if ($('#contactEmail').val() == "") { return; }
     if (EmailValidation()) {
       $('#contactEmail').removeClass('checkError');
+      $('.emailChkErr').hide();
     } else {
       $('#contactEmail').addClass('checkError');
+      $('.emailChkErr').show();
     }
   });
 
   $('#contactPhone').focusout(function () {
+    if ($('#contactPhone').val() == "") { return; }
     if (PhoneValidation()) {
       $('#contactPhone').removeClass('checkError');
+      $('.phoneChkErr').hide();
     } else {
       $('#contactPhone').addClass('checkError');
+      $('.phoneChkErr').show();
     }
   });
 
   $('#contactAge').focusout(function () {
+    if ($('#contactAge').val() == "") { return; }
     if (AgeValidation()) {
       $('#contactAge').removeClass('checkError');
+      $('.ageChkErr').hide();
     } else {
       $('#contactAge').addClass('checkError');
+      $('.ageChkErr').show();
     }
   });
 
   $('#contactPass1').focusout(function () {
     if ($('#contactPass1').val() == "") {
-      $('#contactPass1').addClass('checkError');
+      return;
     } else {
       if (Pass1Validation()) {
         $('#contactPass1').removeClass('checkError');
+        $('.pass1ChkErr').hide();
+        if (Pass2Validation()) {
+          $('#contactPass2').removeClass('checkError');
+          $('.pass2ChkErr').hide();
+        }
       } else {
         $('#contactPass1').addClass('checkError');
+        $('.pass1ChkErr').show();
       }
     }
   });
 
   $('#contactPass2').focusout(function () {
     if ($('#contactPass2').val() == "") {
-      $('#contactPass2').addClass('checkError');
+      return;
     } else {
-      if (Pass1Validation()) {
+      if (Pass2Validation()) {
         $('#contactPass2').removeClass('checkError');
+        $('.pass2ChkErr').hide();
       } else {
         $('#contactPass2').addClass('checkError');
+        $('.pass2ChkErr').show();
       }
     }
   });
