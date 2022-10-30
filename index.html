@@ -15,13 +15,13 @@
 
 <body>
   <div class="mainLayer"></div>
-  <div class="loadingLayer"><i class="fa-solid fa-spinner fa-spin fs-2"></i></div>
+  <div class="loadingLayer"><i class="fa-solid fa-spinner fa-spin fs-1"></i></div>
 
   <div class="position-relative">
-    <div class="navBar">
-      <nav>
-        <div>
-          <ul>
+    <div class="navBar closeNavFlag">
+      <nav class="closeNavFlag">
+        <div class="closeNavFlag">
+          <ul class="closeNavFlag">
             <li id="home">Home</li>
             <li id="search">Search</li>
             <li id="categories">Categoties</li>
@@ -29,30 +29,30 @@
             <li id="ingred">Ingredients</li>
             <li id="contact">Contact Us</li>
           </ul>
-          <div class="form-check form-switch dark-mode">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-            <label class="form-check-label" for="flexSwitchCheckChecked">Dark Mode</label>
+          <div class="form-check form-switch dark-mode closeNavFlag">
+            <input class="form-check-input closeNavFlag" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+              checked>
+            <label class="form-check-label closeNavFlag" for="flexSwitchCheckChecked">Dark Mode</label>
           </div>
         </div>
 
-        <div class="text-muted">
-          <div class="social_icons mb-2">
-            <i class="fa-brands fa-facebook-f"></i>
-            <i class="fa-brands fa-twitter mx-2"></i>
-            <i class="fa-solid fa-globe"></i>
+        <div class="text-muted closeNavFlag">
+          <div class="social_icons mb-2 closeNavFlag">
+            <i class="closeNavFlag fa-brands fa-facebook-f"></i>
+            <i class="closeNavFlag fa-brands fa-twitter mx-2"></i>
+            <i class="closeNavFlag fa-solid fa-globe"></i>
           </div>
-          <p class="text-muted">Copyright © 2022 All Rights Reserved.</p>
+          <p class="closeNavFlag text-muted">Copyright © 2022 All Rights Reserved.</p>
         </div>
       </nav>
 
-      <div class="menu_bar">
+      <div class="closeNavFlag menu_bar">
         <img src="images/logo.png" alt="logo" class="d-block">
-        <i class="fa-solid fa-bars fs-1"></i>
-        <i class="fa-solid fa-xmark fs-1"></i>
+        <i class="fa-solid fa-bars closeNavFlag fs-1"></i>
+        <i class="fa-solid fa-xmark closeNavFlag fs-1"></i>
         <div class="d-flex justify-content-center flex-column">
-          <i class="fa-solid fa-circle-half-stroke"></i>
-          <i class="fa-solid fa-globe my-3"></i>
-          <i class="fa-solid fa-share-nodes"></i>
+          <i class="fa-solid fa-globe my-3 closeNavFlag"></i>
+          <i class="fa-solid fa-share-nodes closeNavFlag"></i>
         </div>
       </div>
     </div>
@@ -67,7 +67,8 @@
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInputSearchletter" placeholder="Search by first letter">
+        <input type="text" maxlength="1" class="form-control" id="floatingInputSearchletter"
+          placeholder="Search by first letter">
         <label for="floatingInputSearchletter">Search by first letter</label>
       </div>
     </div>

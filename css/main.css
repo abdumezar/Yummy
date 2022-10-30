@@ -1,6 +1,5 @@
 body{
   font-family: 'Cairo', sans-serif;
-  /* background-color: rgba(0, 0, 0, 0.95); */
   color: white;
   width: calc(100% - 3rem);
   position: absolute;
@@ -9,7 +8,7 @@ body{
   background-image: url(../images/pexels-pixabay-33162.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
   background-attachment: fixed;
 }
 
@@ -23,7 +22,7 @@ body{
   z-index: -2;
 }
 
-i:hover, nav ul li:hover,.menu_bar img, .Countries .country, .ingredients .ingredient{
+i:hover, nav ul li:hover,.menu_bar img, .Countries .country, .ingredients .ingredient, .meal, .category{
   cursor: pointer;
 }
 
@@ -34,12 +33,14 @@ i:hover, nav ul li:hover,.menu_bar img, .Countries .country, .ingredients .ingre
   bottom: 0;
   right: 0;
   background: rgba(0,0,0,0.7);
-  z-index: 9999;
-  display: none;
+  z-index: 90999;
+  display: flex;
   justify-content: center;
   align-items: center;
   color: white;
 }
+
+/* Nav Bar Styling */
 
 .navBar{
   position: fixed;
@@ -96,9 +97,16 @@ nav ul li{
   display: none;
 }
 
-/*******************************************************************************/
+/* Main Section Styling */
+
 #MainSec{
   width: 75%;
+  margin: 50px auto;
+}
+
+#MainSec h2{
+  text-align: center;
+  font-size: 5rem;
   margin: 50px auto;
 }
 
@@ -115,8 +123,14 @@ nav ul li{
   padding: 0;
   position: relative;
   border-radius: 20px;
-  cursor: pointer;
   color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category{
+  height: 12.5rem;
 }
 
 .mealLayer, .categoryLayer{
@@ -131,13 +145,8 @@ nav ul li{
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
-  font-weight: bold;
   transform: translateY(100%);
   transition: all 1s;
-}
-
-.category{
-  height: 250px;
 }
 
 .meal:hover .mealLayer, .category:hover .categoryLayer{
@@ -145,19 +154,19 @@ nav ul li{
 }
 
 .mealLayer p, .categoryLayer p{
-  font-size: 12px;
+  font-size: 0.8rem;
   font-weight: 300;
 }
+
 .mealLayer h5, .categoryLayer h5{
-  font-size: 40px;
+  font-size: 2rem;
   font-weight: bold;
 }
-/*******************************************************************************/
 
 .currentMeal .mealPhoto{
   width: 100%;
   overflow: hidden;
-  margin: 50px auto;
+  margin: 3rem auto;
   border-radius: 25px;
 }
 
@@ -179,12 +188,6 @@ nav ul li{
   margin: 8px 8px;
   display: inline-block;
   border-color: #f5c6cb;
-}
-
-#MainSec h2{
-  text-align: center;
-  font-size: 5rem;
-  margin: 50px auto;
 }
 
 .checkError{
@@ -210,10 +213,23 @@ nav ul li{
 .country{
   border: #fff 2px solid;
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
   height: 280px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.circled{
+  border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+  border: #fff solid 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1rem;
+  font-size: 4rem;
 }

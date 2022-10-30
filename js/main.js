@@ -1,139 +1,159 @@
+// Dark Mode Toggle
 let darkMode = false;
-let countryImgMode = 'images/breakfast-light.png', ingredImgMode = 'images/baking-light.png';
-$('.form-check-input, .fa-circle-half-stroke').click(toggleDarkMode);
-function toggleDarkMode(e) {
-  if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
-    $('.form-check-input').removeAttr('checked');
-  } else if ($(e.target).hasClass('fa-circle-half-stroke') && !darkMode) {
-    $('.form-check-input').Attr('checked', 'checked');
-  }
+$('.form-check-input').click(toggleDarkMode);
+function toggleDarkMode() {
   if (darkMode == true) {
     darkMode = false;
-    // $('body').css('backgroundColor', 'rgba(0, 0, 0, 0.95)');
+    $('.dark-mode input').attr('checked', 'checked');
     $('body, nav li, .dark-mode label').css('color', 'white');
     $('nav').css('backgroundColor', 'black');
     $('.menu_bar').css('backgroundColor', 'white');
     $('.menu_bar').css('color', 'black');
-    // $('.country img').attr('src', 'images/breakfast-light.png');
-    // $('.ingredient img').attr('src', 'images/baking-light.png');
-    $('.dark-mode input').attr('checked', 'checked');
-    // countryImgMode = 'images/breakfast-light.png';
-    // ingredImgMode = 'images/baking-light.png';
-    // $('.country, .ingredient').css('border', '#fff 2px solid');
   } else {
     darkMode = true;
-    // $('body').css('backgroundColor', 'white');
-    // $('body').css('color', 'black');
     $('nav').css('backgroundColor', 'white');
-    $('nav li').css('color', 'black');
+    $('nav li, .dark-mode label').css('color', 'black');
     $('.menu_bar').css('backgroundColor', 'black');
     $('.menu_bar').css('color', 'white');
-    // $('.country img').attr('src', 'images/breakfast-black.png');
-    // $('.ingredient img').attr('src', 'images/baking-black.png');
-    $('.dark-mode label').css('color', 'black');
-    // countryImgMode = 'images/breakfast-black.png';
-    // ingredImgMode = 'images/baking-black.png';
-    // $('.country, .ingredient').css('border', '#000 2px solid');
   }
 }
 
-$('.fa-bars').click(openNav);
-$('.fa-xmark').click(closeNav);
+// Loading Home Page
 $(document).ready(LoadHomePage);
 $('.menu_bar img, #home ').click(LoadHomePage);
 
+// open & close navigation bar
+$('.fa-bars').click(openNav);
+$('.fa-xmark').click(closeNav);
+$(document).click(function (e) {
+  if ($(e.target).hasClass('closeNavFlag') == false) { closeNav(); }
+});
 
+// control clicks on the page
 $('#MainSec').click(async function (e) {
+  // if click on meal
   if ($(e.target).attr('meal-id') != undefined) {
     $(".loadingLayer").css("display", "flex");
     let currentMealID = $(e.target).attr('meal-id');
     let currentMeal = await (await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${currentMealID}`)).json();
-    dispalyMealDetailed(currentMeal);
-    $(".loadingLayer").css("display", "none");
+    setTimeout(function () {
+      dispalyMealDetailed(currentMeal);
+      $(".loadingLayer").hide();
+    }, 800);
   }
+
+  // if click on category
   if ($(e.target).attr('category') != undefined) {
     $(".loadingLayer").css("display", "flex");
     let currentCategoryName = $(e.target).attr('category');
     let currentCategory = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${currentCategoryName}`)).json();
-    displayAllMeals(currentCategory);
-    $(".loadingLayer").css("display", "none");
+    setTimeout(function () {
+      displayAllMeals(currentCategory);
+      $(".loadingLayer").hide();
+    }, 800);
   }
+
+  // if click on area
   if ($(e.target).attr('country') != undefined) {
     $(".loadingLayer").css("display", "flex");
     let currentCountryName = $(e.target).attr('country');
     let currentCountry = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${currentCountryName}`)).json();
-    displayAllMeals(currentCountry);
-    $(".loadingLayer").css("display", "none");
+    setTimeout(function () {
+      displayAllMeals(currentCountry);
+      $(".loadingLayer").hide();
+    }, 800);
   }
+
+  // if click on ingredient
   if ($(e.target).attr('ingred') != undefined) {
     $(".loadingLayer").css("display", "flex");
     let currentIngredName = $(e.target).attr('ingred');
     let currentIngredJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${currentIngredName}`)).json();
-    displayAllMeals(currentIngredJSON);
-    $(".loadingLayer").css("display", "none");
+    setTimeout(function () {
+      displayAllMeals(currentIngredJSON);
+      $(".loadingLayer").hide();
+    }, 800);
   }
 });
 
+let lastSearchChar;
 $('#search').click(function () {
-  closeNav();
   searchBoxEmpty();
-  $('.searchRow').css("display", "flex"); ///////////////////////none other/////////////////////////////////////////
+  closeNav();
+  $(".loadingLayer").css("display", "flex");
+  setTimeout(function () {
+    $('.searchRow').css("display", "flex");
+    $(".loadingLayer").hide();
+  }, 500);
 
   $("#floatingInputSearchletter").keyup(async function () {
+    if (this.value == "") { return; }
+    if (lastSearchChar == this.value) { return; }
     $(".loadingLayer").css("display", "flex");
-    if (this.value.length == 0) {
-      $(".loadingLayer").css("display", "none");
-    }
-    else {
-      this.value = this.value[0];
-      console.log(this.value)
-      let MealsJSONLetter = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${this.value}`)).json();
+    let MealsJSONLetter = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${this.value}`)).json();
+    lastSearchChar = this.value;
+    setTimeout(function () {
       displayAllMeals(MealsJSONLetter);
-      $(".loadingLayer").css("display", "none");
-    }
+      $(".loadingLayer").hide();
+    }, 700);
   });
 
   $("#floatingInputSearchName").keyup(async function () {
+    if (this.value == "") { return; }
     $(".loadingLayer").css("display", "flex");
     let MealsJSONName = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${this.value}`)).json();
-    displayAllMeals(MealsJSONName);
-    $(".loadingLayer").css("display", "none");
+    setTimeout(function () {
+      displayAllMeals(MealsJSONName);
+      $(".loadingLayer").hide();
+    }, 700);
+  });
+
+  $('#floatingInputSearchletter, #floatingInputSearchName').keyup(function () {
+    if (this.value == "")
+      searchBoxEmpty();
   });
 });
 
 $('#categories').click(async function () {
-  $('.searchRow').css("display", "none");
   closeNav();
   $(".loadingLayer").css("display", "flex");
   let CategoJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)).json();
-  displayAllCategories(CategoJSON);
-  $(".loadingLayer").hide();
+  setTimeout(function () {
+    displayAllCategories(CategoJSON);
+    $(".loadingLayer").hide();
+  }, 700);
 });
 
 $('#area').click(async function () {
-  $('.searchRow').css("display", "none");
+  $('.searchRow').hide();
   closeNav();
   $(".loadingLayer").css("display", "flex");
   let CountryJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`)).json();
-  displayCountries(CountryJSON);
-  $(".loadingLayer").hide();
+  setTimeout(function () {
+    displayCountries(CountryJSON);
+    $(".loadingLayer").hide();
+  }, 700);
 });
 
 $('#ingred').click(async function () {
-  $('.searchRow').css("display", "none");
+  $(".loadingLayer").hide();
   closeNav();
   $(".loadingLayer").css("display", "flex");
   let IngredientsJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`)).json();
-  displayIngredients(IngredientsJSON);
-  $(".loadingLayer").hide();
+  setTimeout(function () {
+    displayIngredients(IngredientsJSON);
+    $(".loadingLayer").hide();
+  }, 700);
 });
 
 $('#contact').click(function () {
-  $('.searchRow').css("display", "none");
+  $(".loadingLayer").hide();
   $(".loadingLayer").css("display", "flex");
   closeNav();
+  setTimeout(function () {
+    $(".loadingLayer").hide();
+  }, 700);
   displayContactForm();
-  $(".loadingLayer").hide();
   $('.contactUs input').keyup(function () {
     if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
       $('button.submit').removeClass('disabled');
@@ -144,22 +164,59 @@ $('#contact').click(function () {
   validateInputs();
 });
 
+// functions  -  functions  -  functions  -  functions  -  functions  -  functions  -  functions  -  functions  -  functions  -  functions
+
+// Load Home Page
 async function LoadHomePage() {
   $(".loadingLayer").css("display", "flex");
+  $('.searchRow').hide();
+  $('#MainSec').html("");
   closeNav();
   let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
-  displayAllMeals(MealsJSONMain);
-  $(".loadingLayer").css("display", "none");
+  setTimeout(function () {
+    displayAllMeals(MealsJSONMain);
+    $(".loadingLayer").hide();
+  }, 1000)
 }
 
+// when search box is empty
+function searchBoxEmpty() {
+  let finalCode = `
+  <div class="d-flex justify-content-center align-items-center mt-5 pt-5">
+    <h3 class="fs-1 text-muted d-block">Please fill search box!</h3>
+  </div>
+  `
+  $('#MainSec').html(finalCode);
+}
+
+// open-close nav functions
+function closeNav() {
+  $('.navBar').animate({ left: "-250px" }, 500);
+  $('.fa-xmark').fadeOut(25, function () {
+    $('.fa-bars').fadeIn(25);
+  });
+  // added to jQuery file manualy
+  $('nav ul li').animateTransform("translateY(500%)", 750);
+}
+
+function openNav() {
+  $('.navBar').animate({ left: "0" }, 500);
+  $('.fa-bars').fadeOut(25, function () {
+    $('.fa-xmark').fadeIn(25);
+  });
+  // added to jQuery file manualy
+  $('nav ul li').animateTransform("translateY(0)", 750);
+}
+
+// Display functions
 function displayAllMeals(MEALs_JSON) {
   let finalCode = "";
   if (MEALs_JSON == undefined || MEALs_JSON.meals == null) {
     finalCode = `
     <div class="d-flex justify-content-center align-items-center mt-5 pt-5">
-      <h3 class="fs-1 text-muted d-block">Please search for another letter!</h3>
+      <h3 class="fs-1 text-danger d-block">Please search for another meal!</h3>
     </div>
-    `
+    `;
   } else {
     let counter = 0;
     MEALs_JSON.meals.length < 20 ? counter = MEALs_JSON.meals.length : counter = 20;
@@ -201,36 +258,9 @@ function displayAllCategories(Catego_JSON) {
   $('#MainSec').html(finalCode);
 }
 
-function searchBoxEmpty() {
-  let finalCode = `
-  <div class="d-flex justify-content-center align-items-center mt-5 pt-5">
-    <h3 class="fs-1 text-muted d-block">Please fill search box!</h3>
-  </div>
-  `
-  $('#MainSec').html(finalCode);
-}
-
-function closeNav() {
-  $('.navBar').animate({ left: "-250px" }, 500);
-  $('.fa-xmark').fadeOut(25, function () {
-    $('.fa-bars').fadeIn(25);
-  });
-  // added to jQuery file manualy
-  $('nav ul li').animateTransform("translateY(500%)", 750);
-}
-
-function openNav() {
-  $('.navBar').animate({ left: "0" }, 500);
-  $('.fa-bars').fadeOut(25, function () {
-    $('.fa-xmark').fadeIn(25);
-  });
-  // added to jQuery file manualy
-  $('nav ul li').animateTransform("translateY(0)", 750);
-}
-
 function dispalyMealDetailed(currentMeal) {
   let ingredMap = new Map(Object.entries(currentMeal.meals[0]));
-  const values = [...ingredMap.values()];
+  let values = [...ingredMap.values()];
   let ingredCode = "", tagsCode = "";
   for (let i = 9; i < 48; i++) {
     if (values[i] != null && values[i] != "" && i < 28) {
@@ -242,40 +272,34 @@ function dispalyMealDetailed(currentMeal) {
     for (tag of tags) {
       tagsCode += `<span>${tag}</span>`;
     }
-  } else {
-    tagsCode = "";
   }
-
   let finalCode = `
   <div class="row currentMeal g-5">
-
-  <div class="col-md-4 m-0">
-    <div class="p-3">
-      <div class="mealPhoto mb-3">
-        <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
-      </div>
-      <h3 class="fs-1 ps-2 my-3">${currentMeal.meals[0].strMeal}</h3>
-    </div>
-  </div>
-
-  <div class="col-md-8 m-0 py-5">
-    <div class="py-2">
-      <h4 class="fs-3">Instructions:</h4>
-      <p class="text-muted my-2">${currentMeal.meals[0].strInstructions}</p>
-      <h4 class="fs-3 my-2">Area: <span class="text-muted">${currentMeal.meals[0].strArea}</span></h4>
-      <h4 class="fs-3 my-2">Category: <span class="text-muted">${currentMeal.meals[0].strCategory}</span></h4>
-      <h4 class="fs-3 mt-2">Recipes:</h4>
-      <div class="recipes mb-5">${ingredCode}</div>
-      <h4 class="fs-3">Tags:</h4>
-      <div class="tags my-3">${tagsCode}</div>
-      <div class="">
-        <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-success me-3">Source</a>
-        <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-danger">YouTube</a>
+    <div class="col-md-4 m-0">
+      <div class="p-3">
+        <div class="mealPhoto mb-3">
+          <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
+        </div>
+        <h3 class="fs-1 ps-2 my-3">${currentMeal.meals[0].strMeal}</h3>
       </div>
     </div>
-  </div>
-</div>
-  `;
+    <div class="col-md-8 m-0 py-5">
+      <div class="py-2">
+        <h4 class="fs-3">Instructions:</h4>
+        <p class="text-muted my-2">${currentMeal.meals[0].strInstructions}</p>
+        <h4 class="fs-3 my-2">Area: <span class="text-muted">${currentMeal.meals[0].strArea}</span></h4>
+        <h4 class="fs-3 my-2">Category: <span class="text-muted">${currentMeal.meals[0].strCategory}</span></h4>
+        <h4 class="fs-3 mt-2">Recipes:</h4>
+        <div class="recipes mb-5">${ingredCode}</div>
+        <h4 class="fs-3">Tags:</h4>
+        <div class="tags my-3">${tagsCode}</div>
+        <div class="">
+          <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-success me-3">Source</a>
+          <a href="${currentMeal.meals[0].strYoutube}" class="btn btn-danger">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
   $('#MainSec').html(finalCode);
 }
 
@@ -285,7 +309,7 @@ function displayCountries(CountriesJSON) {
     myCode += `
     <div class="col-md-3">
       <div class="country" country="${CountriesJSON.meals[i].strArea}">
-        <img src="${countryImgMode}" class="w-50 text-white" country="${CountriesJSON.meals[i].strArea}">
+        <div class="circled" country="${CountriesJSON.meals[i].strArea}"><i class="fa-solid fa-utensils text-white" country="${CountriesJSON.meals[i].strArea}"></i></div>
         <h3 class="my-4 fs-2" country="${CountriesJSON.meals[i].strArea}">${CountriesJSON.meals[i].strArea}</h3>
       </div>
     </div>
@@ -301,9 +325,9 @@ function displayIngredients(IngredientsJSON) {
     myCode += `
     <div class="col-md-3">
         <div class="ingredient" ingred="${IngredientsJSON.meals[i].strIngredient}">
-          <img src="${ingredImgMode}" class="w-50 text-white" ingred="${IngredientsJSON.meals[i].strIngredient}"/>
+          <div class="circled" ingred="${IngredientsJSON.meals[i].strIngredient}"><i class="fa-solid fa-receipt"></i></div>
           <h3 class="my-4" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strIngredient}</h3>
-          <p ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 20).join(" ")}</p>
+          <p class="text-muted" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 20).join(" ")}</p>
         </div>
       </div>
     `;
@@ -311,6 +335,8 @@ function displayIngredients(IngredientsJSON) {
   let finalCode = `<div class="row g-4 text-center ingredients">${myCode}</div>`;
   $('#MainSec').html(finalCode);
 }
+
+// Contact Form & inputs Validation
 
 function displayContactForm() {
   let contactCode = `
@@ -394,6 +420,7 @@ function validateInputs() {
       $('#contactName').removeClass('checkError');
     } else {
       $('#contactName').addClass('checkError');
+
     }
   });
 
@@ -424,7 +451,6 @@ function validateInputs() {
   $('#contactPass1').focusout(function () {
     if ($('#contactPass1').val() == "") {
       $('#contactPass1').addClass('checkError');
-      console.log("meee")
     } else {
       if (Pass1Validation()) {
         $('#contactPass1').removeClass('checkError');
@@ -437,7 +463,6 @@ function validateInputs() {
   $('#contactPass2').focusout(function () {
     if ($('#contactPass2').val() == "") {
       $('#contactPass2').addClass('checkError');
-      console.log("meee")
     } else {
       if (Pass1Validation()) {
         $('#contactPass2').removeClass('checkError');
