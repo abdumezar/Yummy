@@ -226,7 +226,7 @@ function displayAllMeals(MEALs_JSON) {
     let myCode = "";
     for (let i = 0; i < counter; i++) {
       myCode += `
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-3 my-3">
         <div class="meal" meal-id="${MEALs_JSON.meals[i].idMeal}">
           <img src="${MEALs_JSON.meals[i].strMealThumb}" class="w-100" meal-id="${MEALs_JSON.meals[i].idMeal}"/>
           <div class="mealLayer" meal-id="${MEALs_JSON.meals[i].idMeal}">
@@ -246,7 +246,7 @@ function displayAllCategories(Catego_JSON) {
   let myCode = "";
   for (let i = 0; i < Catego_JSON.categories.length; i++) {
     myCode += `
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-6 col-lg-3 my-3">
       <div class="category" category="${Catego_JSON.categories[i].strCategory}">
         <img src="${Catego_JSON.categories[i].strCategoryThumb}" class="w-100" category="${Catego_JSON.categories[i].strCategory}"/>
         <div class="categoryLayer" category="${Catego_JSON.categories[i].strCategory}">
@@ -326,11 +326,11 @@ function displayIngredients(IngredientsJSON) {
   let myCode = "";
   for (let i = 0; i < 20; i++) {
     myCode += `
-    <div class="col-md-3">
+    <div class="col-md-6 col-lg-3 my-3">
         <div class="ingredient" ingred="${IngredientsJSON.meals[i].strIngredient}">
           <div class="circled" ingred="${IngredientsJSON.meals[i].strIngredient}"><i class="fa-solid fa-receipt"></i></div>
           <h3 class="my-4" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strIngredient}</h3>
-          <p class="text-muted" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 20).join(" ")}</p>
+          <p class="text-muted" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 15).join(" ")}...</p>
         </div>
       </div>
     `;
@@ -419,10 +419,12 @@ function validateInputs() {
     if ($('#contactName').val() == "") { return; }
     if (NameValidation()) {
       $('#contactName').removeClass('checkError');
+      $('#contactName').addClass('is-valid');
       $('.nameChkErr').hide();
     } else {
       $('#contactName').addClass('checkError');
       $('.nameChkErr').show();
+      $('#contactName').removeClass('is-valid');
     }
   });
 
@@ -431,9 +433,11 @@ function validateInputs() {
     if (EmailValidation()) {
       $('#contactEmail').removeClass('checkError');
       $('.emailChkErr').hide();
+      $('#contactEmail').addClass('is-valid');
     } else {
       $('#contactEmail').addClass('checkError');
       $('.emailChkErr').show();
+      $('#contactEmail').removeClass('is-valid');
     }
   });
 
@@ -442,9 +446,11 @@ function validateInputs() {
     if (PhoneValidation()) {
       $('#contactPhone').removeClass('checkError');
       $('.phoneChkErr').hide();
+      $('#contactPhone').addClass('is-valid');
     } else {
       $('#contactPhone').addClass('checkError');
       $('.phoneChkErr').show();
+      $('#contactPhone').removeClass('is-valid');
     }
   });
 
@@ -453,9 +459,11 @@ function validateInputs() {
     if (AgeValidation()) {
       $('#contactAge').removeClass('checkError');
       $('.ageChkErr').hide();
+      $('#contactAge').addClass('is-valid');
     } else {
       $('#contactAge').addClass('checkError');
       $('.ageChkErr').show();
+      $('#contactAge').removeClass('is-valid');
     }
   });
 
@@ -466,13 +474,16 @@ function validateInputs() {
       if (Pass1Validation()) {
         $('#contactPass1').removeClass('checkError');
         $('.pass1ChkErr').hide();
+        $('#contactPass1').addClass('is-valid');
         if (Pass2Validation()) {
           $('#contactPass2').removeClass('checkError');
           $('.pass2ChkErr').hide();
+          $('#contactPass2').addClass('is-valid');
         }
       } else {
         $('#contactPass1').addClass('checkError');
         $('.pass1ChkErr').show();
+        $('#contactPass1').removeClass('is-valid');
       }
     }
   });
@@ -483,10 +494,12 @@ function validateInputs() {
     } else {
       if (Pass2Validation()) {
         $('#contactPass2').removeClass('checkError');
+        $('#contactPass2').addClass('is-valid');
         $('.pass2ChkErr').hide();
       } else {
         $('#contactPass2').addClass('checkError');
         $('.pass2ChkErr').show();
+        $('#contactPass2').removeClass('is-valid');
       }
     }
   });
