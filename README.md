@@ -8,6 +8,7 @@
   - change background color to background photo.
   - change loading page animation.
   - minimize animations time.
+  - remove borders and add shadows to cards.
 #
 # Api used in this website:
   - https://www.themealdb.com/api.php
