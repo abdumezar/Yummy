@@ -1,0 +1,282 @@
+body{
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  width: calc(100% - 3.5rem);
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* background-image: url(../images/pexels-pixabay-33162.jpg); */
+  background-image: url(../images/pexels-lukas-349609.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.mainLayer{
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
+}
+
+i:hover, nav ul li:hover,.menu_bar img, .Countries .country, .ingredients .ingredient, .meal, .category{
+  cursor: pointer;
+}
+
+.loadingLayer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 90999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+/* Nav Bar Styling */
+
+.navBar{
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: -250px;
+  display: flex;
+}
+
+nav{
+  height: 100vh;
+  width: 250px;
+  background: rgba(0, 0, 0, 0.95);
+  color: #fff;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+nav ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+nav ul li{
+  margin: 20px 0;
+  font-size: 1.5em;
+  transform: translateY(500%);
+  color: white;
+}
+
+.menu_bar{
+  background-color: white;
+  color: black;
+  height: 100vh;
+  font-size: 1.5rem;
+  width: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
+  align-items: center;
+}
+
+.menu_bar img{
+  width: 2rem;
+}
+
+.fa-xmark{
+  display: none;
+}
+
+/* Main Section Styling */
+
+#MainSec{
+  width: 80%;
+  margin: 0 auto;
+}
+
+#contact h2{
+  text-align: center;
+  font-size: 3em;
+  margin: 48px auto;
+}
+
+.searchRow{
+  display: none;
+  margin: 48px auto;
+  width: 75%;
+  color: #000;
+}
+
+.meal, .category{
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  border-radius: 20px;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category{
+  height: 12.5em;
+  padding: 15px;
+}
+
+.category img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.mealLayer, .categoryLayer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+  transform: translateY(100%);
+  transition: all 0.6s;
+}
+
+.meal:hover .mealLayer, .category:hover .categoryLayer{
+  transform: translateY(0);
+}
+
+.mealLayer p, .categoryLayer p{
+  font-size: 0.8em;
+  font-weight: 300;
+}
+
+.mealLayer h5, .categoryLayer h5{
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.currentMeal .mealPhoto{
+  width: 100%;
+  overflow: hidden;
+  margin: 3rem auto;
+  border-radius: 25px;
+}
+
+.currentMeal .recipes span{
+  color: #155724;
+  background-color: #d4edda;
+  border-radius: 7px;
+  padding: 3px 5px;
+  margin: 5px;
+  display: inline-block;
+  border-color: #c3e6cb;
+}
+
+.currentMeal .tags  span{
+  color: #721c24;
+  background-color: #f8d7da;
+  border-radius: 7px;
+  padding: 3px 5px;
+  margin: 8px 8px;
+  display: inline-block;
+  border-color: #f5c6cb;
+}
+
+.currentMeal p{
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: 300;
+
+}
+
+.checkError{
+  border: rgb(255, 0, 0) solid 3px;
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #fff;
+}
+
+.checkError ~ label{
+  color: #fff;
+}
+.checkError:focus ~ label{
+  color: #000;
+}
+
+.country, .ingredient{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ingredient{
+  height: 360px;
+}
+
+.circled{
+  border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+  border: #fff solid 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1rem;
+  font-size: 4rem;
+}
+
+.contactUs p{
+  display: none;
+  font-size: 0.9rem;
+}
+
+.contactUs h2{
+  text-align: center;
+  font-size: 3em;
+  margin: 48px auto;
+}
+
+@media screen and (max-width: 768px) {
+  body{
+    font-size: 12px;
+  }
+  #MainSec{
+    width: 85%;
+    margin: 30px auto;
+  }
+  .searchRow{
+    width: 90%;
+  }
+  .currentMeal h3{
+    text-align: center;
+  }
+  .contactUs h2{
+    margin: 16px auto;
+  }
+  .contactUs .row{
+    padding: 0 1.5em;
+  }
+  .contactUs button{
+    margin: 1.4em auto;
+  }
+}
