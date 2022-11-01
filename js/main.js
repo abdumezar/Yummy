@@ -154,8 +154,8 @@ $('#contact').click(function () {
   closeNav();
   setTimeout(function () {
     $(".loadingLayer").fadeOut(700);
-    displayContactForm();
   }, 700);
+  displayContactForm();
   $('.contactUs input').keyup(function () {
     if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
       $('button.submit').removeClass('disabled');
@@ -186,8 +186,7 @@ function searchBoxEmpty() {
   let finalCode = `
   <div class="d-flex justify-content-center align-items-center mt-5 pt-5">
     <h3 class="fs-1 text-muted d-block">Please fill search box!</h3>
-  </div>
-  `
+  </div>`;
   $('#MainSec').html(finalCode);
 }
 
@@ -235,7 +234,6 @@ function displayAllMeals(MEALs_JSON) {
     }
     finalCode = `<div class="row g-4">${myCode}</div>`;
   }
-
   $('#MainSec').html(finalCode);
 }
 
@@ -343,14 +341,14 @@ function displayContactForm() {
   <div class="row py-2 text-black">
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control test1" id="contactName" placeholder="Name">
+        <input type="text" class="form-control" id="contactName" placeholder="Name">
         <label for="contactName">Name</label>
       </div>
       <p class="fw-bold text-danger nameChkErr"> - Name: at least 3 charachters [ up tp 30 charachters]. </p>
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="email" class="form-control " id="contactEmail" placeholder="Email address">
+        <input type="email" class="form-control" id="contactEmail" placeholder="Email address">
         <label for="contactEmail">Email address</label>
       </div>
       <p class="fw-bold text-danger emailChkErr"> - Email: email@provider.com. </p>
@@ -364,26 +362,26 @@ function displayContactForm() {
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="number" class="form-control " id="contactAge" placeholder="Age">
+        <input type="number" class="form-control" id="contactAge" placeholder="Age">
         <label for="contactAge">Age</label>
       </div>
       <p class="fw-bold text-danger ageChkErr"> - Age : from 18 to 80 years old.</p>
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="password" class="form-control " id="contactPass1" placeholder="Password">
+        <input type="password" class="form-control" id="contactPass1" placeholder="Password">
         <label for="contactPass1">Password</label>
       </div>
       <p class="fw-bold text-danger pass1ChkErr"> - Password: must contain charachters, numbers, special charachter [ 8 or more ].</p>
     </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="password" class="form-control " id="contactPass2" placeholder="Re enter password">
+        <input type="password" class="form-control" id="contactPass2" placeholder="Re enter password">
         <label for="contactPass2">Re enter password</label>
       </div>
       <p class="fw-bold text-danger pass2ChkErr"> - two passwords are different!</p>
     </div>
-    <div class="col-12 text-center py-5">
+    <div class="col-12 text-center py-md-5">
       <button class="btn submit btn-success w-50 disabled">Submit</button>
     </div>
   </div>`
@@ -500,21 +498,3 @@ function validateInputs() {
     }
   });
 }
-//------------
-// displayContactForm();
-$(".loadingLayer").fadeOut(700);
-$('.searchRow').hide();
-$(".loadingLayer").css("display", "flex");
-closeNav();
-setTimeout(function () {
-  $(".loadingLayer").fadeOut(700);
-}, 700);
-
-$('.contactUs input').keyup(function () {
-  if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
-    $('button.submit').removeClass('disabled');
-  } else {
-    $('button.submit').addClass('disabled');
-  }
-  validateInputs();
-});

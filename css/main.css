@@ -276,4 +276,7 @@ nav ul li{
   .contactUs .row{
     padding: 0 1.5em;
   }
+  .contactUs button{
+    margin: 1.4em auto;
+  }
 }
