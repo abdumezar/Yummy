@@ -2,7 +2,7 @@
   - https://abdumezar.github.io/Yummy/
  #
  # Updates:
-  - fix resposing with mobile screens.
+  - fix responding with mobile screens.
   - fix validations in contact us form.
   - fix Dark Mode button.
   - change background color to background photo.
