@@ -149,14 +149,13 @@ $('#ingred').click(async function () {
 });
 
 $('#contact').click(function () {
-  $(".loadingLayer").fadeOut(700);
   $('.searchRow').hide();
   $(".loadingLayer").css("display", "flex");
   closeNav();
   setTimeout(function () {
     $(".loadingLayer").fadeOut(700);
+    displayContactForm();
   }, 700);
-  displayContactForm();
   $('.contactUs input').keyup(function () {
     if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
       $('button.submit').removeClass('disabled');
@@ -218,8 +217,7 @@ function displayAllMeals(MEALs_JSON) {
     finalCode = `
     <div class="d-flex justify-content-center align-items-center mt-5 pt-5">
       <h3 class="fs-1 text-danger d-block">Please search for another meal!</h3>
-    </div>
-    `;
+    </div>`;
   } else {
     let counter = 0;
     MEALs_JSON.meals.length < 20 ? counter = MEALs_JSON.meals.length : counter = 20;
@@ -227,16 +225,15 @@ function displayAllMeals(MEALs_JSON) {
     for (let i = 0; i < counter; i++) {
       myCode += `
       <div class="col-md-6 col-lg-3 my-3">
-        <div class="meal" meal-id="${MEALs_JSON.meals[i].idMeal}">
+        <div class="meal shadow" meal-id="${MEALs_JSON.meals[i].idMeal}">
           <img src="${MEALs_JSON.meals[i].strMealThumb}" class="w-100" meal-id="${MEALs_JSON.meals[i].idMeal}"/>
           <div class="mealLayer" meal-id="${MEALs_JSON.meals[i].idMeal}">
             <h5 meal-id="${MEALs_JSON.meals[i].idMeal}">${MEALs_JSON.meals[i].strMeal}</h5>
           </div>
         </div>
-      </div>
-      `;
+      </div>`;
     }
-    finalCode = `<div class="row g-4">${myCode}</div>`
+    finalCode = `<div class="row g-4">${myCode}</div>`;
   }
 
   $('#MainSec').html(finalCode);
@@ -247,15 +244,14 @@ function displayAllCategories(Catego_JSON) {
   for (let i = 0; i < Catego_JSON.categories.length; i++) {
     myCode += `
     <div class="col-md-6 col-lg-3 my-3">
-      <div class="category" category="${Catego_JSON.categories[i].strCategory}">
+      <div class="category shadow" category="${Catego_JSON.categories[i].strCategory}">
         <img src="${Catego_JSON.categories[i].strCategoryThumb}" category="${Catego_JSON.categories[i].strCategory}"/>
         <div class="categoryLayer" category="${Catego_JSON.categories[i].strCategory}">
           <h5 category="${Catego_JSON.categories[i].strCategory}">${Catego_JSON.categories[i].strCategory}</h5>
           <p category="${Catego_JSON.categories[i].strCategory}">${Catego_JSON.categories[i].strCategoryDescription.split(" ").slice(0, 20).join(" ")}</p>
         </div>
       </div>
-    </div>
-    `;
+    </div>`;
   }
   finalCode = `<div class="row g-5">${myCode}</div>`
   $('#MainSec').html(finalCode);
@@ -279,7 +275,7 @@ function dispalyMealDetailed(currentMeal) {
   let finalCode = `
   <div class="row currentMeal g-5">
     <div class="col-md-4 m-0">
-      <div class="p-md-3">
+      <div class="p-md-3 shadow-lg p-2">
         <div class="mealPhoto mb-3">
           <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
         </div>
@@ -287,7 +283,7 @@ function dispalyMealDetailed(currentMeal) {
       </div>
     </div>
     <div class="col-md-8 m-0 py-md-5">
-      <div class="py-2 text-white">
+      <div class="py-2 text-white shadow-lg p-2">
         <h4 class="fs-3">Instructions:</h4>
         <p class="text-white-50 my-2">${currentMeal.meals[0].strInstructions}</p>
         <h4 class="fs-3 my-2">Area: <span class="text-white-50">${currentMeal.meals[0].strArea}</span></h4>
@@ -391,7 +387,7 @@ function displayContactForm() {
       <button class="btn submit btn-success w-50 disabled">Submit</button>
     </div>
   </div>`
-  $('#MainSec').html(contactCode);
+  $('#MainSec').html(`<div class="ps-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div>`);
 }
 
 function NameValidation() {
@@ -504,3 +500,21 @@ function validateInputs() {
     }
   });
 }
+//------------
+// displayContactForm();
+$(".loadingLayer").fadeOut(700);
+$('.searchRow').hide();
+$(".loadingLayer").css("display", "flex");
+closeNav();
+setTimeout(function () {
+  $(".loadingLayer").fadeOut(700);
+}, 700);
+
+$('.contactUs input').keyup(function () {
+  if (NameValidation() && EmailValidation() && PhoneValidation() && AgeValidation() && Pass1Validation() && Pass2Validation()) {
+    $('button.submit').removeClass('disabled');
+  } else {
+    $('button.submit').addClass('disabled');
+  }
+  validateInputs();
+});
