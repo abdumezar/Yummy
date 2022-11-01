@@ -340,7 +340,7 @@ function displayIngredients(IngredientsJSON) {
 function displayContactForm() {
   let contactCode = `
   <h2>Contact Us</h2>
-  <div class="row contactUs py-2 text-black">
+  <div class="row py-2 text-black">
     <div class="col-md-6">
       <div class="form-floating mb-3">
         <input type="text" class="form-control test1" id="contactName" placeholder="Name">
@@ -387,7 +387,7 @@ function displayContactForm() {
       <button class="btn submit btn-success w-50 disabled">Submit</button>
     </div>
   </div>`
-  $('#MainSec').html(`<div class="ps-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div>`);
+  $('#MainSec').html(`<div class="contactUs ps-md-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div>`);
 }
 
 function NameValidation() {

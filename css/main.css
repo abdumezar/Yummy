@@ -102,18 +102,18 @@ nav ul li{
 
 #MainSec{
   width: 80%;
-  margin: 50px auto;
+  margin: 48px auto;
 }
 
-#MainSec h2{
+#contact h2{
   text-align: center;
-  font-size: 5em;
-  margin: 50px auto;
+  font-size: 3em;
+  margin: 48px auto;
 }
 
 .searchRow{
   display: none;
-  margin: 50px auto;
+  margin: 48px auto;
   width: 75%;
   color: #000;
 }
@@ -250,6 +250,12 @@ nav ul li{
   font-size: 0.9rem;
 }
 
+.contactUs h2{
+  text-align: center;
+  font-size: 3em;
+  margin: 48px auto;
+}
+
 @media screen and (max-width: 768px) {
   body{
     font-size: 12px;
@@ -263,5 +269,11 @@ nav ul li{
   }
   .currentMeal h3{
     text-align: center;
+  }
+  .contactUs h2{
+    margin: 16px auto;
+  }
+  .contactUs .row{
+    padding: 0 1.5em;
   }
 }
