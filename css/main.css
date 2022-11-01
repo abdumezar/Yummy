@@ -221,22 +221,15 @@ nav ul li{
   color: #000;
 }
 
-.ingredient{
-  border: #fff 2px solid;
-  border-radius: 10px;
-  padding: 15px 5px;
-  height: 350px;
-}
-
-.country{
-  border: #fff 2px solid;
-  border-radius: 10px;
-  padding: 15px;
-  height: 280px;
+.country, .ingredient{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.ingredient{
+  height: 360px;
 }
 
 .circled{
@@ -271,6 +264,4 @@ nav ul li{
   .currentMeal h3{
     text-align: center;
   }
-
-  
 }

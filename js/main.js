@@ -275,7 +275,7 @@ function dispalyMealDetailed(currentMeal) {
   let finalCode = `
   <div class="row currentMeal g-5">
     <div class="col-md-4 m-0">
-      <div class="p-md-3 shadow-lg p-2">
+      <div class="p-md-3 shadow-lg rounded-4 p-2">
         <div class="mealPhoto mb-3">
           <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
         </div>
@@ -283,7 +283,7 @@ function dispalyMealDetailed(currentMeal) {
       </div>
     </div>
     <div class="col-md-8 m-0 py-md-5">
-      <div class="py-2 text-white shadow-lg p-2">
+      <div class="py-2 text-white shadow-lg rounded-4 p-2">
         <h4 class="fs-3">Instructions:</h4>
         <p class="text-white-50 my-2">${currentMeal.meals[0].strInstructions}</p>
         <h4 class="fs-3 my-2">Area: <span class="text-white-50">${currentMeal.meals[0].strArea}</span></h4>
@@ -307,7 +307,7 @@ function displayCountries(CountriesJSON) {
   for (let i = 0; i < 20; i++) {
     myCode += `
     <div class="col-md-3">
-      <div class="country" country="${CountriesJSON.meals[i].strArea}">
+      <div class="country p-3 shadow-lg rounded-4" country="${CountriesJSON.meals[i].strArea}">
         <div class="circled" country="${CountriesJSON.meals[i].strArea}"><i class="fa-solid fa-utensils text-white" country="${CountriesJSON.meals[i].strArea}"></i></div>
         <h3 class="my-4 fs-2" country="${CountriesJSON.meals[i].strArea}">${CountriesJSON.meals[i].strArea}</h3>
       </div>
@@ -323,7 +323,7 @@ function displayIngredients(IngredientsJSON) {
   for (let i = 0; i < 20; i++) {
     myCode += `
     <div class="col-md-6 col-lg-3 my-3" ingred="${IngredientsJSON.meals[i].strIngredient}">
-        <div class="ingredient" ingred="${IngredientsJSON.meals[i].strIngredient}">
+        <div class="ingredient p-3 shadow-lg rounded-4" ingred="${IngredientsJSON.meals[i].strIngredient}">
           <div class="circled" ingred="${IngredientsJSON.meals[i].strIngredient}"><i class="fa-solid fa-receipt" ingred="${IngredientsJSON.meals[i].strIngredient}"></i></div>
           <h3 class="my-4" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strIngredient}</h3>
           <p class="text-muted" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 15).join(" ")}...</p>
