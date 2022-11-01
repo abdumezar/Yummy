@@ -279,7 +279,7 @@ function dispalyMealDetailed(currentMeal) {
         <div class="mealPhoto mb-3">
           <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
         </div>
-        <h3 class="fs-1 ps-md-2 my-md-2 my-lg-3">${currentMeal.meals[0].strMeal}</h3>
+        <h3 class="fs-1 ms-md-2 my-md-2 my-lg-3">${currentMeal.meals[0].strMeal}</h3>
       </div>
     </div>
     <div class="col-md-8 m-0 py-md-5">
@@ -387,7 +387,7 @@ function displayContactForm() {
       <button class="btn submit btn-success w-50 disabled">Submit</button>
     </div>
   </div>`
-  $('#MainSec').html(`<div class="contactUs ps-md-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div>`);
+  $('#MainSec').html(`<div class="contactUs px-md-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div>`);
 }
 
 function NameValidation() {
