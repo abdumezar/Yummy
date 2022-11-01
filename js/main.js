@@ -271,7 +271,7 @@ function dispalyMealDetailed(currentMeal) {
     }
   }
   let finalCode = `
-  <div class="row my-5 currentMeal g-5">
+  <div class="row mt-2 currentMeal g-5">
     <div class="col-md-4 m-0">
       <div class="p-md-3 shadow-lg rounded-4 p-2">
         <div class="mealPhoto mb-3">
