@@ -1,11 +1,12 @@
 body{
   font-family: 'Poppins', sans-serif;
   color: white;
-  width: calc(100% - 3rem);
+  width: calc(100% - 3.5rem);
   position: absolute;
   top: 0;
   right: 0;
-  background-image: url(../images/pexels-pixabay-33162.jpg);
+  /* background-image: url(../images/pexels-pixabay-33162.jpg); */
+  background-image: url(../images/pexels-lukas-349609.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -71,7 +72,7 @@ nav ul{
 
 nav ul li{
   margin: 20px 0;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   transform: translateY(500%);
   color: white;
 }
@@ -81,7 +82,7 @@ nav ul li{
   color: black;
   height: 100vh;
   font-size: 1.5rem;
-  white-space: 60px;
+  width: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -90,7 +91,7 @@ nav ul li{
 }
 
 .menu_bar img{
-  width: 3rem;
+  width: 2rem;
 }
 
 .fa-xmark{
@@ -106,7 +107,7 @@ nav ul li{
 
 #MainSec h2{
   text-align: center;
-  font-size: 5rem;
+  font-size: 5em;
   margin: 50px auto;
 }
 
@@ -130,7 +131,15 @@ nav ul li{
 }
 
 .category{
-  height: 12.5rem;
+  height: 12.5em;
+  padding: 15px;
+}
+
+.category img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .mealLayer, .categoryLayer{
@@ -144,9 +153,9 @@ nav ul li{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem;
+  padding: 2em;
   transform: translateY(100%);
-  transition: all 1s;
+  transition: all 0.6s;
 }
 
 .meal:hover .mealLayer, .category:hover .categoryLayer{
@@ -154,12 +163,12 @@ nav ul li{
 }
 
 .mealLayer p, .categoryLayer p{
-  font-size: 0.8rem;
+  font-size: 0.8em;
   font-weight: 300;
 }
 
 .mealLayer h5, .categoryLayer h5{
-  font-size: 2rem;
+  font-size: 2em;
   font-weight: bold;
 }
 
@@ -175,7 +184,7 @@ nav ul li{
   background-color: #d4edda;
   border-radius: 7px;
   padding: 3px 5px;
-  margin: 8px 8px;
+  margin: 5px;
   display: inline-block;
   border-color: #c3e6cb;
 }
@@ -188,6 +197,15 @@ nav ul li{
   margin: 8px 8px;
   display: inline-block;
   border-color: #f5c6cb;
+}
+
+.currentMeal p{
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: 300;
+
 }
 
 .checkError{
@@ -237,4 +255,22 @@ nav ul li{
 .contactUs p{
   display: none;
   font-size: 0.9rem;
+}
+
+@media screen and (max-width: 768px) {
+  body{
+    font-size: 12px;
+  }
+  #MainSec{
+    width: 85%;
+    margin: 30px auto;
+  }
+  .searchRow{
+    width: 90%;
+  }
+  .currentMeal h3{
+    text-align: center;
+  }
+
+  
 }
