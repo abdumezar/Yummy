@@ -38,7 +38,7 @@ $('#MainSec').click(async function (e) {
     let currentMeal = await (await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${currentMealID}`)).json();
     setTimeout(function () {
       dispalyMealDetailed(currentMeal);
-      $(".loadingLayer").hide();
+      $(".loadingLayer").fadeOut(700);
     }, 800);
   }
 
@@ -49,7 +49,7 @@ $('#MainSec').click(async function (e) {
     let currentCategory = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${currentCategoryName}`)).json();
     setTimeout(function () {
       displayAllMeals(currentCategory);
-      $(".loadingLayer").hide();
+      $(".loadingLayer").fadeOut(700);
     }, 800);
   }
 
@@ -60,7 +60,7 @@ $('#MainSec').click(async function (e) {
     let currentCountry = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${currentCountryName}`)).json();
     setTimeout(function () {
       displayAllMeals(currentCountry);
-      $(".loadingLayer").hide();
+      $(".loadingLayer").fadeOut(700);
     }, 800);
   }
 
@@ -71,7 +71,7 @@ $('#MainSec').click(async function (e) {
     let currentIngredJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${currentIngredName}`)).json();
     setTimeout(function () {
       displayAllMeals(currentIngredJSON);
-      $(".loadingLayer").hide();
+      $(".loadingLayer").fadeOut(700);
     }, 800);
   }
 });
@@ -83,7 +83,7 @@ $('#search').click(function () {
   $(".loadingLayer").css("display", "flex");
   setTimeout(function () {
     $('.searchRow').css("display", "flex");
-    $(".loadingLayer").hide();
+    $(".loadingLayer").fadeOut(700);
   }, 500);
 
   $("#floatingInputSearchletter").keyup(async function () {
@@ -94,7 +94,7 @@ $('#search').click(function () {
     lastSearchChar = this.value;
     setTimeout(function () {
       displayAllMeals(MealsJSONLetter);
-      $(".loadingLayer").hide();
+      $(".loadingLayer").fadeOut(700);
     }, 700);
   });
 
@@ -104,7 +104,7 @@ $('#search').click(function () {
     let MealsJSONName = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${this.value}`)).json();
     setTimeout(function () {
       displayAllMeals(MealsJSONName);
-      $(".loadingLayer").hide();
+      $(".loadingLayer").fadeOut(700);
     }, 700);
   });
 
@@ -121,7 +121,7 @@ $('#categories').click(async function () {
   let CategoJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)).json();
   setTimeout(function () {
     displayAllCategories(CategoJSON);
-    $(".loadingLayer").hide();
+    $(".loadingLayer").fadeOut(700);
   }, 700);
 });
 
@@ -132,29 +132,29 @@ $('#area').click(async function () {
   let CountryJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`)).json();
   setTimeout(function () {
     displayCountries(CountryJSON);
-    $(".loadingLayer").hide();
+    $(".loadingLayer").fadeOut(700);
   }, 700);
 });
 
 $('#ingred').click(async function () {
-  $(".loadingLayer").hide();
+  $(".loadingLayer").fadeOut(700);
   $('.searchRow').hide();
   closeNav();
   $(".loadingLayer").css("display", "flex");
   let IngredientsJSON = await (await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`)).json();
   setTimeout(function () {
     displayIngredients(IngredientsJSON);
-    $(".loadingLayer").hide();
+    $(".loadingLayer").fadeOut(700);
   }, 700);
 });
 
 $('#contact').click(function () {
-  $(".loadingLayer").hide();
+  $(".loadingLayer").fadeOut(700);
   $('.searchRow').hide();
   $(".loadingLayer").css("display", "flex");
   closeNav();
   setTimeout(function () {
-    $(".loadingLayer").hide();
+    $(".loadingLayer").fadeOut(700);
   }, 700);
   displayContactForm();
   $('.contactUs input').keyup(function () {
@@ -178,7 +178,7 @@ async function LoadHomePage() {
   let MealsJSONMain = await (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)).json();
   setTimeout(function () {
     displayAllMeals(MealsJSONMain);
-    $(".loadingLayer").hide();
+    $(".loadingLayer").fadeOut(700);
   }, 1000)
 }
 
@@ -194,21 +194,21 @@ function searchBoxEmpty() {
 
 // open-close nav functions
 function closeNav() {
-  $('.navBar').animate({ left: "-250px" }, 500);
+  $('.navBar').animate({ left: "-250px" }, 300);
   $('.fa-xmark').fadeOut(25, function () {
     $('.fa-bars').fadeIn(25);
   });
   // added to jQuery file manualy
-  $('nav ul li').animateTransform("translateY(500%)", 750);
+  $('nav ul li').animateTransform("translateY(500%)", 700);
 }
 
 function openNav() {
-  $('.navBar').animate({ left: "0" }, 500);
+  $('.navBar').animate({ left: "0" }, 300);
   $('.fa-bars').fadeOut(25, function () {
     $('.fa-xmark').fadeIn(25);
   });
   // added to jQuery file manualy
-  $('nav ul li').animateTransform("translateY(0)", 750);
+  $('nav ul li').animateTransform("translateY(0)", 700);
 }
 
 // Display functions
@@ -248,7 +248,7 @@ function displayAllCategories(Catego_JSON) {
     myCode += `
     <div class="col-md-6 col-lg-3 my-3">
       <div class="category" category="${Catego_JSON.categories[i].strCategory}">
-        <img src="${Catego_JSON.categories[i].strCategoryThumb}" class="w-100" category="${Catego_JSON.categories[i].strCategory}"/>
+        <img src="${Catego_JSON.categories[i].strCategoryThumb}" category="${Catego_JSON.categories[i].strCategory}"/>
         <div class="categoryLayer" category="${Catego_JSON.categories[i].strCategory}">
           <h5 category="${Catego_JSON.categories[i].strCategory}">${Catego_JSON.categories[i].strCategory}</h5>
           <p category="${Catego_JSON.categories[i].strCategory}">${Catego_JSON.categories[i].strCategoryDescription.split(" ").slice(0, 20).join(" ")}</p>
@@ -279,22 +279,22 @@ function dispalyMealDetailed(currentMeal) {
   let finalCode = `
   <div class="row currentMeal g-5">
     <div class="col-md-4 m-0">
-      <div class="p-3">
+      <div class="p-md-3">
         <div class="mealPhoto mb-3">
           <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
         </div>
-        <h3 class="fs-1 ps-2 my-3">${currentMeal.meals[0].strMeal}</h3>
+        <h3 class="fs-1 ps-md-2 my-md-2 my-lg-3">${currentMeal.meals[0].strMeal}</h3>
       </div>
     </div>
-    <div class="col-md-8 m-0 py-5">
-      <div class="py-2">
+    <div class="col-md-8 m-0 py-md-5">
+      <div class="py-2 text-white">
         <h4 class="fs-3">Instructions:</h4>
-        <p class="text-muted my-2">${currentMeal.meals[0].strInstructions}</p>
-        <h4 class="fs-3 my-2">Area: <span class="text-muted">${currentMeal.meals[0].strArea}</span></h4>
-        <h4 class="fs-3 my-2">Category: <span class="text-muted">${currentMeal.meals[0].strCategory}</span></h4>
+        <p class="text-white-50 my-2">${currentMeal.meals[0].strInstructions}</p>
+        <h4 class="fs-3 my-2">Area: <span class="text-white-50">${currentMeal.meals[0].strArea}</span></h4>
+        <h4 class="fs-3 my-2">Category: <span class="text-white-50">${currentMeal.meals[0].strCategory}</span></h4>
         <h4 class="fs-3 mt-2">Recipes:</h4>
-        <div class="recipes mb-5">${ingredCode}</div>
-        <h4 class="fs-3">Tags:</h4>
+        <div class="recipes mb-sm-3">${ingredCode}</div>
+        <h4 class="fs-3 my-2">Tags:</h4>
         <div class="tags my-3">${tagsCode}</div>
         <div class="">
           <a target="_blank" href="${currentMeal.meals[0].strYoutube}" class="btn btn-success me-3">Source</a>
@@ -326,9 +326,9 @@ function displayIngredients(IngredientsJSON) {
   let myCode = "";
   for (let i = 0; i < 20; i++) {
     myCode += `
-    <div class="col-md-6 col-lg-3 my-3">
+    <div class="col-md-6 col-lg-3 my-3" ingred="${IngredientsJSON.meals[i].strIngredient}">
         <div class="ingredient" ingred="${IngredientsJSON.meals[i].strIngredient}">
-          <div class="circled" ingred="${IngredientsJSON.meals[i].strIngredient}"><i class="fa-solid fa-receipt"></i></div>
+          <div class="circled" ingred="${IngredientsJSON.meals[i].strIngredient}"><i class="fa-solid fa-receipt" ingred="${IngredientsJSON.meals[i].strIngredient}"></i></div>
           <h3 class="my-4" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strIngredient}</h3>
           <p class="text-muted" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 15).join(" ")}...</p>
         </div>
