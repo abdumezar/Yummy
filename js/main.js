@@ -232,7 +232,7 @@ function displayAllMeals(MEALs_JSON) {
         </div>
       </div>`;
     }
-    finalCode = `<div class="row g-4">${myCode}</div>`;
+    finalCode = `<div class="row my-5 g-4">${myCode}</div>`;
   }
   $('#MainSec').html(finalCode);
 }
@@ -251,7 +251,7 @@ function displayAllCategories(Catego_JSON) {
       </div>
     </div>`;
   }
-  finalCode = `<div class="row g-5">${myCode}</div>`
+  finalCode = `<div class="row my-5 g-5">${myCode}</div>`
   $('#MainSec').html(finalCode);
 }
 
@@ -312,7 +312,7 @@ function displayCountries(CountriesJSON) {
     </div>
     `;
   }
-  let finalCode = `<div class="row g-4 text-center Countries">${myCode}</div>`;
+  let finalCode = `<div class="row g-4 my-5 text-center Countries">${myCode}</div>`;
   $('#MainSec').html(finalCode);
 }
 
@@ -329,7 +329,7 @@ function displayIngredients(IngredientsJSON) {
       </div>
     `;
   }
-  let finalCode = `<div class="row g-4 text-center ingredients">${myCode}</div>`;
+  let finalCode = `<div class="row g-4 text-center my-5 ingredients">${myCode}</div>`;
   $('#MainSec').html(finalCode);
 }
 
@@ -384,8 +384,9 @@ function displayContactForm() {
     <div class="col-12 text-center py-md-5">
       <button class="btn submit btn-success w-50 disabled">Submit</button>
     </div>
-  </div>`
-  $('#MainSec').html(`<div class="contactUs px-md-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div>`);
+  </div>`;
+  // $('#MainSec').css('margin', '0px auto');
+  $('#MainSec').html(`<div class="d-flex justify-content-center align-items-center flex-column vh-100"><div class="contactUs px-md-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div></div>`);
 }
 
 function NameValidation() {
