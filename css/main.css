@@ -5,7 +5,6 @@ body{
   position: absolute;
   top: 0;
   right: 0;
-  /* background-image: url(../images/pexels-pixabay-33162.jpg); */
   background-image: url(../images/pexels-lukas-349609.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -14,7 +13,7 @@ body{
 }
 
 .mainLayer{
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.75);
   position: fixed;
   top: 0;
   left: 0;
@@ -72,7 +71,7 @@ nav ul{
 
 nav ul li{
   margin: 20px 0;
-  font-size: 1.5em;
+  font-size: 1.2em;
   transform: translateY(500%);
   color: white;
 }
@@ -98,6 +97,15 @@ nav ul li{
   display: none;
 }
 
+.fa-bars,.fa-xmark{
+  transition: all 0.5s;
+}
+.fa-bars:hover, .fa-xmark:hover{
+  color: #FDCB10;
+}
+
+
+
 /* Main Section Styling */
 
 #MainSec{
@@ -113,7 +121,7 @@ nav ul li{
 
 .searchRow{
   display: none;
-  margin: 48px auto;
+  margin: 35px auto;
   width: 75%;
   color: #000;
 }
@@ -236,7 +244,8 @@ nav ul li{
   border-radius: 50%;
   width: 8rem;
   height: 8rem;
-  border: #fff solid 2px;
+  border-color: #fff;
+  border: solid 2px;
   display: flex;
   justify-content: center;
   align-items: center;

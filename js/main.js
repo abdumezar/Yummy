@@ -1,20 +1,42 @@
 // Dark Mode Toggle
-let darkMode = false;
+let darkMode = false, black_white_toggle = 'white', opacityContactUs = 10;
 $('.form-check-input').click(toggleDarkMode);
 function toggleDarkMode() {
   if (darkMode == true) {
     darkMode = false;
+    black_white_toggle = 'white';
+    opacityContactUs = 10;
+    $('.t-color-meal, .currentMeal h3, .country, .ingredients, .contactUs').removeClass('text-black');
+    $('.t-color-meal, .currentMeal h3, .country, .ingredients, .contactUs').addClass('text-white');
+    $('.currentMeal p, .currentMeal h4 span, .ingredients p').removeClass('text-black-50');
+    $('.currentMeal p, .currentMeal h4 span, .ingredients p').addClass('text-white-50');
+    $('.mainLayer').css('background-color', 'rgba(0, 0, 0, 0.75)');
+    $('.mealLayer, .categoryLayer').css('background-color', 'rgba(255, 255, 255, 0.75)');
+    $('.mealLayer, .categoryLayer').css('color', 'black');
     $('.dark-mode input').attr('checked', 'checked');
     $('body, nav li, .dark-mode label').css('color', 'white');
     $('nav').css('backgroundColor', 'black');
     $('.menu_bar').css('backgroundColor', 'white');
     $('.menu_bar').css('color', 'black');
+    $('.contactUs').removeClass('bg-black bg-opacity-25');
+    $('.contactUs').addClass('bg-white bg-opacity-10');
   } else {
     darkMode = true;
+    black_white_toggle = 'black';
+    opacityContactUs = 25;
+    $('.t-color-meal, .currentMeal h3, .country, .ingredients, .contactUs').removeClass('text-white');
+    $('.t-color-meal, .currentMeal h3, .country, .ingredients, .contactUs').addClass('text-black');
+    $('.currentMeal p, .currentMeal h4 span, .ingredients p').removeClass('text-white-50');
+    $('.currentMeal p, .currentMeal h4 span, .ingredients p').addClass('text-black-50');
+    $('.mealLayer, .categoryLayer').css('background-color', 'rgba(0, 0, 0, 0.75)');
+    $('.mealLayer, .categoryLayer').css('color', 'white');
+    $('.mainLayer').css('background-color', 'rgba(255, 255, 255, 0.3)');
     $('nav').css('backgroundColor', 'white');
     $('nav li, .dark-mode label').css('color', 'black');
     $('.menu_bar').css('backgroundColor', 'black');
     $('.menu_bar').css('color', 'white');
+    $('.contactUs').removeClass('bg-white bg-opacity-10');
+    $('.contactUs').addClass('bg-black bg-opacity-25');
   }
 }
 
@@ -270,28 +292,28 @@ function dispalyMealDetailed(currentMeal) {
       tagsCode += `<span>${tag}</span>`;
     }
   }
+  tagsCode = (tagsCode == "") ? "" : `<h4 class="fs-3 my-2">Tags:</h4><div class="tags my-3">${tagsCode}</div>`;
   let finalCode = `
-  <div class="row my-5 currentMeal g-5">
-    <div class="col-md-4 m-0">
+  <div class="row my-2 currentMeal g-5">
+    <div class="col-md-4 m-0 py-md-5">
       <div class="p-md-3 shadow-lg rounded-4 p-2">
         <div class="mealPhoto mb-3">
           <img src="${currentMeal.meals[0].strMealThumb}" class="w-100"/>
         </div>
-        <h3 class="fs-1 ms-md-2 my-md-2 my-lg-3">${currentMeal.meals[0].strMeal}</h3>
+        <h3 class="fs-1 ms-md-2 my-md-2 my-lg-3 text-${black_white_toggle}">${currentMeal.meals[0].strMeal}</h3>
       </div>
     </div>
     <div class="col-md-8 m-0 py-md-5">
-      <div class="py-2 text-white shadow-lg rounded-4 p-2">
+      <div class="py-2 text-${black_white_toggle} shadow-lg rounded-4 p-2 t-color-meal">
         <h4 class="fs-3">Instructions:</h4>
-        <p class="text-white-50 my-2">${currentMeal.meals[0].strInstructions}</p>
-        <h4 class="fs-3 my-2">Area: <span class="text-white-50">${currentMeal.meals[0].strArea}</span></h4>
-        <h4 class="fs-3 my-2">Category: <span class="text-white-50">${currentMeal.meals[0].strCategory}</span></h4>
+        <p class="text-${black_white_toggle}-50 my-2">${currentMeal.meals[0].strInstructions}</p>
+        <h4 class="fs-3 my-2">Area: <span class="text-${black_white_toggle}-50">${currentMeal.meals[0].strArea}</span></h4>
+        <h4 class="fs-3 my-2">Category: <span class="text-${black_white_toggle}-50">${currentMeal.meals[0].strCategory}</span></h4>
         <h4 class="fs-3 mt-2">Recipes:</h4>
         <div class="recipes mb-sm-3">${ingredCode}</div>
-        <h4 class="fs-3 my-2">Tags:</h4>
-        <div class="tags my-3">${tagsCode}</div>
-        <div class="">
-          <a target="_blank" href="${currentMeal.meals[0].strYoutube}" class="btn btn-success me-3">Source</a>
+        ${tagsCode}
+        <div class="mb-2 ms-1">
+          <a target="_blank" href="${currentMeal.meals[0].strSource}" class="btn btn-success me-3">Source</a>
           <a target="_blank" href="${currentMeal.meals[0].strYoutube}" class="btn btn-danger">YouTube</a>
         </div>
       </div>
@@ -305,8 +327,8 @@ function displayCountries(CountriesJSON) {
   for (let i = 0; i < 20; i++) {
     myCode += `
     <div class="col-md-3">
-      <div class="country p-3 shadow-lg rounded-4" country="${CountriesJSON.meals[i].strArea}">
-        <div class="circled" country="${CountriesJSON.meals[i].strArea}"><i class="fa-solid fa-utensils text-white" country="${CountriesJSON.meals[i].strArea}"></i></div>
+      <div class="country text-${black_white_toggle} p-3 shadow-lg rounded-4" country="${CountriesJSON.meals[i].strArea}">
+        <div class="circled" country="${CountriesJSON.meals[i].strArea}"><i class="fa-solid fa-utensils" country="${CountriesJSON.meals[i].strArea}"></i></div>
         <h3 class="my-4 fs-2" country="${CountriesJSON.meals[i].strArea}">${CountriesJSON.meals[i].strArea}</h3>
       </div>
     </div>
@@ -324,12 +346,12 @@ function displayIngredients(IngredientsJSON) {
         <div class="ingredient p-3 shadow-lg rounded-4" ingred="${IngredientsJSON.meals[i].strIngredient}">
           <div class="circled" ingred="${IngredientsJSON.meals[i].strIngredient}"><i class="fa-solid fa-receipt" ingred="${IngredientsJSON.meals[i].strIngredient}"></i></div>
           <h3 class="my-4" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strIngredient}</h3>
-          <p class="text-muted" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 15).join(" ")}...</p>
+          <p class="text-${black_white_toggle}-50" ingred="${IngredientsJSON.meals[i].strIngredient}">${IngredientsJSON.meals[i].strDescription.split(" ").slice(0, 15).join(" ")}...</p>
         </div>
       </div>
     `;
   }
-  let finalCode = `<div class="row g-4 text-center my-5 ingredients">${myCode}</div>`;
+  let finalCode = `<div class="row g-4 text-center my-5 ingredients text-${black_white_toggle}">${myCode}</div>`;
   $('#MainSec').html(finalCode);
 }
 
@@ -386,7 +408,7 @@ function displayContactForm() {
     </div>
   </div>`;
   // $('#MainSec').css('margin', '0px auto');
-  $('#MainSec').html(`<div class="d-flex justify-content-center align-items-center flex-column vh-100"><div class="contactUs px-md-5 py-2 bg-light bg-opacity-10 rounded-4 shadow-lg">${contactCode}</div></div>`);
+  $('#MainSec').html(`<div class="d-flex justify-content-center align-items-center flex-column vh-100"><div class="contactUs text-${black_white_toggle} px-md-5 py-2 bg-${black_white_toggle} bg-opacity-${opacityContactUs} rounded-4 shadow-lg">${contactCode}</div></div>`);
 }
 
 function NameValidation() {
